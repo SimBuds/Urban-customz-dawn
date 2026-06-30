@@ -13,7 +13,11 @@
   "sections": {
     "uc_footer": {
       "type": "uc-footer",
-      "settings": {}
+      "settings": {
+        "hubspot_portal_id": "343353306",
+        "hubspot_form_id": "3bcf2471-cba5-4d17-8e11-1217fedc301a",
+        "hubspot_region": "na3"
+      }
     }
   },
   "order": [

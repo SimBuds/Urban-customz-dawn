@@ -1451,5 +1451,26 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "HubSpot",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Only set this if you are NOT using the official HubSpot app (the app injects its own tracking code). Enter your HubSpot Hub ID / Portal ID to load the tracking script site-wide."
+      },
+      {
+        "type": "text",
+        "id": "hubspot_hub_id",
+        "label": "HubSpot Hub ID (Portal ID)"
+      },
+      {
+        "type": "text",
+        "id": "hubspot_hublet",
+        "label": "HubSpot region / hublet",
+        "info": "Leave blank for na1. Set to your hublet (e.g. na3, eu1) if your portal is not on the default region.",
+        "default": "na1"
+      }
+    ]
   }
 ]

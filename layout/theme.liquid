@@ -321,6 +321,13 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    {%- comment -%} HubSpot tracking — only when no-app embed route is used. Leave blank if the HubSpot app is installed (it injects its own tracking). {%- endcomment -%}
+    {%- if settings.hubspot_hub_id != blank -%}
+      {%- assign hs_sub = 'js' -%}
+      {%- if settings.hubspot_hublet != blank and settings.hubspot_hublet != 'na1' -%}{%- assign hs_sub = 'js-' | append: settings.hubspot_hublet -%}{%- endif -%}
+      <script type="text/javascript" id="hs-script-loader" async defer src="//{{ hs_sub }}.hs-scripts.com/{{ settings.hubspot_hub_id }}.js"></script>
+    {%- endif -%}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">

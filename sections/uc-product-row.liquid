@@ -27,7 +27,7 @@
   #uc-row-{{ section.id }} .prod .pr{ font-size:12px;color:#666;margin-top:4px; }
   #uc-row-{{ section.id }} .prod .pr b{ color:{{ section.settings.price_color }};font-weight:700; }
   @media (max-width:990px){ #uc-row-{{ section.id }} .prod{ flex-basis:calc((100% - 28px)/3); } }
-  @media (max-width:749px){ #uc-row-{{ section.id }} .head{ display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap; } #uc-row-{{ section.id }} .tabs{ order:3;width:100%;justify-content:flex-start; } #uc-row-{{ section.id }} .ctrls{ justify-content:flex-end; } #uc-row-{{ section.id }} .prod{ flex-basis:72%;min-width:210px; } }
+  @media (max-width:749px){ #uc-row-{{ section.id }}{ text-align:center; } #uc-row-{{ section.id }} .head{ display:flex;align-items:center;justify-content:center;flex-wrap:wrap; } #uc-row-{{ section.id }} h2{ width:100%; } #uc-row-{{ section.id }} .tabs{ order:2;width:100%;justify-content:center; } #uc-row-{{ section.id }} .ctrls{ order:3;width:100%;justify-content:center; } #uc-row-{{ section.id }} .chips{ justify-content:flex-start; } #uc-row-{{ section.id }} .prods{ padding-left:8px;padding-right:8px; } #uc-row-{{ section.id }} .prod{ flex-basis:72%;min-width:210px; } }
 {%- endstyle -%}
 
 <div id="uc-row-{{ section.id }}" data-uc-section>
