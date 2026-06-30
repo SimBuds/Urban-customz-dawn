@@ -1,0 +1,47 @@
+{%- comment -%}
+  Urban Customz — Top Utility Bar
+  Drop into Dawn theme `sections/` and add via theme editor, or place above header in layout/theme.liquid.
+{%- endcomment -%}
+
+{%- style -%}
+  #uc-utility-{{ section.id }}{
+    background:{{ section.settings.bg }};
+    color:{{ section.settings.text_color }};
+    display:flex;align-items:center;justify-content:center;gap:64px;
+    padding:8px 24px;font-size:13px;
+    font-family:'Poppins',var(--font-body-family),sans-serif;
+  }
+  #uc-utility-{{ section.id }} .uc-util{ display:flex;align-items:center;gap:10px; }
+  #uc-utility-{{ section.id }} .uc-util-ic{ width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:14px; }
+  #uc-utility-{{ section.id }} .uc-util b{ font-weight:600; }
+  #uc-utility-{{ section.id }} .uc-util small{ font-size:11px;color:{{ section.settings.accent }}; }
+  @media (max-width:749px){ #uc-utility-{{ section.id }}{ gap:24px;flex-wrap:wrap; } }
+{%- endstyle -%}
+
+<div id="uc-utility-{{ section.id }}">
+  <a href="tel:{{ section.settings.phone | strip }}" class="uc-util" style="color:inherit;text-decoration:none">
+    <span class="uc-util-ic">☎</span>
+    <span><b>{{ section.settings.phone }}</b><br><small>● {{ section.settings.phone_label }}</small></span>
+  </a>
+  <a href="{{ section.settings.chat_url }}" class="uc-util" style="color:inherit;text-decoration:none">
+    <span class="uc-util-ic">💬</span>
+    <span><b>{{ section.settings.chat_title }}</b><br><small>● {{ section.settings.chat_label }}</small></span>
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "UC Utility Bar",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Background", "default": "#000000" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "accent", "label": "Status accent", "default": "#8fd18f" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "+1 (888) 307-4622" },
+    { "type": "text", "id": "phone_label", "label": "Phone label", "default": "Talk to an expert" },
+    { "type": "text", "id": "chat_title", "label": "Chat title", "default": "Live Chat Now" },
+    { "type": "text", "id": "chat_label", "label": "Chat label", "default": "Chat with an expert" },
+    { "type": "url", "id": "chat_url", "label": "Chat link" }
+  ],
+  "presets": [{ "name": "UC Utility Bar" }]
+}
+{% endschema %}

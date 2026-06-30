@@ -1,0 +1,82 @@
+{%- comment -%} Urban Customz — New Arrivals (lifestyle image + product carousel + CTA) {%- endcomment -%}
+
+{%- style -%}
+  #uc-new-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-new-{{ section.id }} .wrap{ display:grid;grid-template-columns:1fr 1.6fr;gap:36px;align-items:center; }
+  #uc-new-{{ section.id }} .media{ aspect-ratio:1/1;border-radius:10px;overflow:hidden; }
+  #uc-new-{{ section.id }} .media img,
+  #uc-new-{{ section.id }} .media svg{ width:100%;height:100%;object-fit:cover; }
+  #uc-new-{{ section.id }} h2{ font-size:30px;font-weight:700;margin:0; }
+  #uc-new-{{ section.id }} .lead{ color:#777;font-size:14px;margin:6px 0 22px; }
+  #uc-new-{{ section.id }} .track{ display:flex;gap:14px;overflow-x:auto;padding-bottom:6px; }
+  #uc-new-{{ section.id }} .prod{ flex:0 0 200px;background:#f4f4f4;border-radius:10px;padding:18px 14px 20px;text-align:center;text-decoration:none;color:inherit; }
+  #uc-new-{{ section.id }} .prod .img{ height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:16px; }
+  #uc-new-{{ section.id }} .prod .img img,
+  #uc-new-{{ section.id }} .prod .img svg{ max-height:200px;width:auto;border-radius:3px;box-shadow:0 6px 16px rgba(0,0,0,.15); }
+  #uc-new-{{ section.id }} .prod .nm{ font-weight:700;font-size:14px; }
+  #uc-new-{{ section.id }} .prod .pr{ font-size:12px;color:#666;margin-top:4px; }
+  #uc-new-{{ section.id }} .prod .pr b{ color:#e8302a; }
+  #uc-new-{{ section.id }} .cta{ text-align:center;margin-top:24px; }
+  #uc-new-{{ section.id }} .cta a{ display:inline-block;background:#000;color:#fff;border-radius:30px;padding:14px 30px;font-weight:600;font-size:14px;text-decoration:none; }
+  @media (max-width:749px){ #uc-new-{{ section.id }} .wrap{ grid-template-columns:1fr;gap:24px; } }
+{%- endstyle -%}
+
+<div id="uc-new-{{ section.id }}" data-uc-section>
+  <div class="wrap">
+    <div class="media">
+      {%- if section.settings.image -%}
+        {{ section.settings.image | image_url: width: 700 | image_tag: loading: 'lazy' }}
+      {%- else -%}
+        <img src="{{ 'uc-new-lifestyle.webp' | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="928" height="1042">
+      {%- endif -%}
+    </div>
+    <div>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="lead">{{ section.settings.subheading }}</div>
+      <div class="track" data-uc-track>
+        {%- assign coll = collections[section.settings.collection] -%}
+        {%- if coll != blank and coll.products.size > 0 -%}
+          {%- for product in coll.products limit: section.settings.products_to_show -%}
+            <a class="prod" href="{{ product.url }}">
+              <div class="img">
+                {%- if product.featured_media -%}{{ product.featured_media | image_url: width: 300 | image_tag: loading: 'lazy' }}{%- else -%}{{ 'product-' | append: forloop.index | placeholder_svg_tag }}{%- endif -%}
+              </div>
+              <div class="nm">{{ product.title }}</div>
+              <div class="pr">Starting at <b>{{ product.price | money }}</b></div>
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign fallback_titles = 'Rise and Shine|Organic Structure|Its Okay|Balance Room|Keep the Pace|Rise and Shine|Organic Structure|Its Okay|Hit Me Hard|Gods Plan' | split: '|' -%}
+      {%- assign fallback_images = 'uc-product-1.avif|uc-product-2.webp|uc-product-3.avif|uc-product-4.webp|uc-product-5.avif|uc-product-6.avif|uc-product-7.avif|uc-product-8.avif|uc-product-9.avif|uc-product-10.avif' | split: '|' -%}
+      {%- for i in (1..section.settings.products_to_show) -%}
+        {%- assign fallback_index = forloop.index0 -%}
+        {%- assign fallback_title = fallback_titles[fallback_index] | default: 'Custom Print' -%}
+        {%- assign fallback_image = fallback_images[fallback_index] | default: 'uc-product-1.avif' -%}
+        <div class="prod">
+          <div class="img"><img src="{{ fallback_image | asset_url }}" alt="{{ fallback_title | escape }}" loading="lazy" width="300" height="300"></div>
+          <div class="nm">{{ fallback_title }}</div>
+          <div class="pr">Starting at <b>$29.00</b></div>
+        </div>
+      {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <div class="cta"><a href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }}</a></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC New Arrivals",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Lifestyle image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "New Arrivals" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Art that refuses to blend in." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 3 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "View Full Collection" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "UC New Arrivals" }]
+}
+{% endschema %}

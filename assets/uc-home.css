@@ -1,0 +1,51 @@
+:root {
+  --uc-black: #000;
+  --uc-red: #f4202a;
+  --uc-muted: #6f7782;
+  --uc-card: #f4f4f4;
+}
+
+body.template-index {
+  background: #fff;
+}
+
+.uc-page-shell,
+[id^='uc-hero-'],
+[id^='uc-press-'],
+[id^='uc-cust-'],
+[id^='uc-row-'],
+[id^='uc-comm-'],
+[id^='uc-new-'],
+[id^='uc-why-'],
+[id^='uc-test-'],
+[id^='uc-vid-'],
+[id^='uc-loc-'] {
+  font-family: var(--font-body-family), Arial, sans-serif;
+}
+
+.uc-scroll-btn {
+  border: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: #e6e6e6;
+  color: #111;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.uc-scroll-btn:hover {
+  background: #d7d7d7;
+}
+
+@media screen and (max-width: 749px) {
+  .uc-scroll-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 23px;
+  }
+}

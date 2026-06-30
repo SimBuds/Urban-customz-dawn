@@ -1,0 +1,75 @@
+{%- comment -%} Urban Customz — Promo / Savings Banner {%- endcomment -%}
+
+{%- style -%}
+  #uc-promo-{{ section.id }}{
+    background:{{ section.settings.bg }};color:#fff;
+    display:flex;align-items:center;justify-content:center;gap:48px;
+    padding:14px 24px;font-family:'Poppins',var(--font-body-family),sans-serif;
+  }
+  #uc-promo-{{ section.id }} .uc-promo-head{ font-weight:800;font-size:18px;line-height:1.1; }
+  #uc-promo-{{ section.id }} .uc-grad{
+    background:linear-gradient(90deg,#ff5f5f,#ffd23f,#5fd0ff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  #uc-promo-{{ section.id }} .uc-promo-right{ display:flex;align-items:center;gap:20px; }
+  #uc-promo-{{ section.id }} .uc-off b{ color:#ffb020;font-weight:800;font-size:20px; }
+  #uc-promo-{{ section.id }} .uc-off small{ font-size:10px;color:#bbb;display:block; }
+  #uc-promo-{{ section.id }} .uc-div{ width:1px;height:38px;background:#444; }
+  #uc-promo-{{ section.id }} .uc-tiers{ display:flex;gap:10px; }
+  #uc-promo-{{ section.id }} .uc-tier{ background:#fff;color:#000;border-radius:3px;padding:4px 10px;text-align:center;line-height:1; }
+  #uc-promo-{{ section.id }} .uc-tier .c{ font-size:7px;font-weight:700;color:#777; }
+  #uc-promo-{{ section.id }} .uc-tier .p{ font-weight:800;font-size:15px; }
+  @media (max-width:749px){ #uc-promo-{{ section.id }}{ gap:20px;flex-wrap:wrap;text-align:center; } }
+{%- endstyle -%}
+
+<div id="uc-promo-{{ section.id }}">
+  <div class="uc-promo-head">
+    <div class="uc-grad">{{ section.settings.line1 }}</div>
+    <div>{{ section.settings.line2 }}</div>
+  </div>
+  <div class="uc-promo-right">
+    <div class="uc-off"><b>{{ section.settings.offer }}</b><small>{{ section.settings.offer_sub }}</small></div>
+    <div class="uc-div"></div>
+    <div class="uc-tiers">
+      {%- for block in section.blocks -%}
+        <div class="uc-tier" {{ block.shopify_attributes }}>
+          <div class="c">{{ block.settings.category }}</div>
+          <div class="p">{{ block.settings.percent }}</div>
+          <div class="c">{{ block.settings.suffix }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Promo Banner",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Background", "default": "#161616" },
+    { "type": "text", "id": "line1", "label": "Headline line 1", "default": "STACK YOUR SAVINGS:" },
+    { "type": "text", "id": "line2", "label": "Headline line 2", "default": "BUY MORE, SAVE MORE!" },
+    { "type": "text", "id": "offer", "label": "Offer", "default": "35% OFF" },
+    { "type": "text", "id": "offer_sub", "label": "Offer sub", "default": "ALL APPAREL PRINTS" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Discount tier",
+      "settings": [
+        { "type": "text", "id": "category", "label": "Category", "default": "1X APPAREL" },
+        { "type": "text", "id": "percent", "label": "Percent", "default": "10%" },
+        { "type": "text", "id": "suffix", "label": "Suffix", "default": "EXTRA OFF" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "UC Promo Banner",
+    "blocks": [
+      { "type": "tier", "settings": { "category": "1X APPAREL", "percent": "10%" } },
+      { "type": "tier", "settings": { "category": "2X APPAREL", "percent": "20%" } },
+      { "type": "tier", "settings": { "category": "3X APPAREL", "percent": "30%" } }
+    ]
+  }]
+}
+{% endschema %}

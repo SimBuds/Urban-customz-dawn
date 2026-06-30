@@ -1,0 +1,115 @@
+{%- comment -%}
+  Urban Customz — Product Row (reusable)
+  Used for "Shop Bestsellers" and "New Deals". Pulls live products from a chosen collection,
+  with a tab label row and category chip blocks.
+{%- endcomment -%}
+
+{%- style -%}
+  #uc-row-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-row-{{ section.id }} .head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:16px; }
+  #uc-row-{{ section.id }} h2{ font-size:30px;font-weight:700;margin:0; }
+  #uc-row-{{ section.id }} .ctrls{ display:flex;align-items:center;gap:28px; }
+  #uc-row-{{ section.id }} .tabs{ display:flex;gap:22px;font-size:14px; }
+  #uc-row-{{ section.id }} .tabs span{ cursor:pointer;padding-bottom:4px;color:#aaa; }
+  #uc-row-{{ section.id }} .tabs span.on{ color:#000;font-weight:600;border-bottom:2px solid #000; }
+  #uc-row-{{ section.id }} .arrow{ width:40px;height:40px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px; }
+  #uc-row-{{ section.id }} .chips{ display:flex;gap:10px;margin-bottom:24px;overflow-x:auto;padding-bottom:4px; }
+  #uc-row-{{ section.id }} .chip{ white-space:nowrap;border:1px solid #ddd;border-radius:18px;padding:8px 16px;font-size:13px;font-weight:500;background:#f4f4f4;cursor:pointer;text-decoration:none;color:inherit; }
+  #uc-row-{{ section.id }} .chip.on{ border-color:#111;background:#fff; }
+  #uc-row-{{ section.id }} .prods{ display:grid;grid-template-columns:repeat(5,1fr);gap:14px; }
+  #uc-row-{{ section.id }} .prod{ background:#f4f4f4;border-radius:10px;padding:16px 12px 18px;text-align:center;text-decoration:none;color:inherit;display:block; }
+  #uc-row-{{ section.id }} .prod .img{ height:215px;display:flex;align-items:center;justify-content:center;margin-bottom:16px; }
+  #uc-row-{{ section.id }} .prod .img img,
+  #uc-row-{{ section.id }} .prod .img svg{ max-height:215px;max-width:100%;width:auto;border-radius:4px;box-shadow:0 6px 18px rgba(0,0,0,.18); }
+  #uc-row-{{ section.id }} .prod .nm{ font-weight:700;font-size:15px; }
+  #uc-row-{{ section.id }} .prod .pr{ font-size:12px;color:#666;margin-top:4px; }
+  #uc-row-{{ section.id }} .prod .pr b{ color:{{ section.settings.price_color }};font-weight:700; }
+  @media (max-width:990px){ #uc-row-{{ section.id }} .prods{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:749px){ #uc-row-{{ section.id }} .prods{ grid-template-columns:repeat(2,1fr); } }
+{%- endstyle -%}
+
+<div id="uc-row-{{ section.id }}" data-uc-section>
+  <div class="head">
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="ctrls">
+      <div class="tabs">
+        {%- assign tabs = section.settings.tabs | split: ',' -%}
+        {%- for t in tabs -%}<span class="{% if forloop.first %}on{% endif %}">{{ t | strip }}</span>{%- endfor -%}
+      </div>
+      <button class="arrow uc-scroll-btn" type="button" data-uc-scroll="next" aria-label="Scroll products">›</button>
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="chips">
+      {%- for block in section.blocks -%}
+        <a class="chip {% if forloop.first %}on{% endif %}" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div class="prods" data-uc-track>
+    {%- assign coll = collections[section.settings.collection] -%}
+    {%- if coll != blank and coll.products.size > 0 -%}
+      {%- for product in coll.products limit: section.settings.products_to_show -%}
+        <a class="prod" href="{{ product.url }}">
+          <div class="img">
+            {%- if product.featured_media -%}
+              {{ product.featured_media | image_url: width: 300 | image_tag: loading: 'lazy' }}
+            {%- else -%}
+              {{ 'product-' | append: forloop.index | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <div class="nm">{{ product.title }}</div>
+          <div class="pr">Starting at <b>{{ product.price | money }}</b></div>
+        </a>
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign fallback_titles = 'The Goal King|The Last Shot|The Argentina Ace|Kickoff in Barcelona|2 Souls Grown|Rise and Shine|Organic Structure|Its Okay|Hit Me Hard|Gods Plan' | split: '|' -%}
+      {%- assign fallback_images = 'uc-product-1.avif|uc-product-2.webp|uc-product-3.avif|uc-product-4.webp|uc-product-5.avif|uc-product-6.avif|uc-product-7.avif|uc-product-8.avif|uc-product-9.avif|uc-product-10.avif' | split: '|' -%}
+      {%- for i in (1..section.settings.products_to_show) -%}
+        {%- assign fallback_index = forloop.index0 -%}
+        {%- assign fallback_title = fallback_titles[fallback_index] | default: 'Custom Print' -%}
+        {%- assign fallback_image = fallback_images[fallback_index] | default: 'uc-product-1.avif' -%}
+        <div class="prod">
+          <div class="img"><img src="{{ fallback_image | asset_url }}" alt="{{ fallback_title | escape }}" loading="lazy" width="300" height="300"></div>
+          <div class="nm">{{ fallback_title }}</div>
+          <div class="pr">Starting at <b>$29.00</b></div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Product Row",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop Bestsellers" },
+    { "type": "text", "id": "tabs", "label": "Tabs (comma separated)", "default": "Wall Art, Apparel" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Products to show", "default": 5 },
+    { "type": "color", "id": "price_color", "label": "Price color", "default": "#e8302a" }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "Category chip",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Category" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "UC Product Row",
+    "blocks": [
+      { "type": "chip", "settings": { "label": "Sports Legends" } },
+      { "type": "chip", "settings": { "label": "Movies, TV & Superheroes" } },
+      { "type": "chip", "settings": { "label": "Music Icons" } },
+      { "type": "chip", "settings": { "label": "Luxury & Brands" } },
+      { "type": "chip", "settings": { "label": "Fashion & Streetwear" } }
+    ]
+  }]
+}
+{% endschema %}

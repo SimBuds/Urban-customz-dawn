@@ -1,0 +1,49 @@
+{%- comment -%} Urban Customz — Commission (image + text + CTA) {%- endcomment -%}
+
+{%- style -%}
+  #uc-comm-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-comm-{{ section.id }} .wrap{ display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center; }
+  #uc-comm-{{ section.id }} .media{ aspect-ratio:4/3;border-radius:10px;overflow:hidden; }
+  #uc-comm-{{ section.id }} .media img,
+  #uc-comm-{{ section.id }} .media svg{ width:100%;height:100%;object-fit:cover; }
+  #uc-comm-{{ section.id }} h2{ font-size:38px;font-weight:800;line-height:1.1;margin:0; }
+  #uc-comm-{{ section.id }} .sub{ font-size:17px;font-weight:600;margin-top:16px; }
+  #uc-comm-{{ section.id }} .sub .a{ color:#e8302a; } #uc-comm-{{ section.id }} .sub .b{ color:#888; }
+  #uc-comm-{{ section.id }} p{ color:#5b6b7b;font-size:15px;line-height:1.6;margin-top:18px; }
+  #uc-comm-{{ section.id }} .btn{ display:inline-block;margin-top:26px;background:#fff;border:2px solid #111;border-radius:30px;padding:14px 30px;font-weight:700;font-size:15px;text-decoration:none;color:#111; }
+  @media (max-width:749px){ #uc-comm-{{ section.id }} .wrap{ grid-template-columns:1fr;gap:28px; } #uc-comm-{{ section.id }} h2{ font-size:30px; } }
+{%- endstyle -%}
+
+<div id="uc-comm-{{ section.id }}">
+  <div class="wrap">
+    <div class="media">
+      {%- if section.settings.image -%}
+        {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+      {%- else -%}
+        <img src="{{ 'uc-commission.webp' | asset_url }}" alt="{{ section.settings.heading | escape }}" loading="lazy" width="556" height="461">
+      {%- endif -%}
+    </div>
+    <div>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="sub"><span class="a">{{ section.settings.sub_accent }}</span> <span class="b">{{ section.settings.sub_rest }}</span></div>
+      <p>{{ section.settings.body }}</p>
+      <a class="btn" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Commission",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Don't Want To Do It Yourself?" },
+    { "type": "text", "id": "sub_accent", "label": "Subheading accent", "default": "Commission" },
+    { "type": "text", "id": "sub_rest", "label": "Subheading rest", "default": "One Of Our Artists Instead" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "You have the vision, but not the tools. Skip the learning curve and let our team turn your concept into reality using pro-grade equipment and premium materials." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Commission Ur Artist" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "UC Commission" }]
+}
+{% endschema %}

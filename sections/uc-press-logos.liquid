@@ -1,0 +1,61 @@
+{%- comment -%} Urban Customz — Press / "As seen on" Logo Strip {%- endcomment -%}
+
+{%- style -%}
+  #uc-press-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px; }
+  #uc-press-{{ section.id }} .marquee{ overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); }
+  #uc-press-{{ section.id }} .track{ display:flex;align-items:center;width:max-content;opacity:.7;animation:uc-press-scroll-{{ section.id }} 32s linear infinite; }
+  #uc-press-{{ section.id }} .marquee:hover .track{ animation-play-state:paused; }
+  #uc-press-{{ section.id }} .logo{ max-height:42px;width:auto;object-fit:contain;flex:0 0 auto;margin-right:64px; }
+  #uc-press-{{ section.id }} .logo-txt{ font-family:'Poppins',var(--font-body-family),sans-serif;font-weight:800;font-size:17px;letter-spacing:1px;color:#222;white-space:nowrap; }
+  @keyframes uc-press-scroll-{{ section.id }}{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ #uc-press-{{ section.id }} .track{ animation:none;flex-wrap:wrap;justify-content:center;width:auto; } }
+{%- endstyle -%}
+
+{%- assign fallback_logos = 'uc-logo-voxdata.avif|uc-logo-westcliff.avif|uc-logo-sage.webp|uc-logo-big-brother.webp|uc-logo-hugo-boss.webp|uc-logo-btb.webp|uc-logo-bmo.avif|uc-logo-cadillac.avif' | split: '|' -%}
+
+<div id="uc-press-{{ section.id }}">
+  <div class="marquee">
+    <div class="track">
+      {%- comment -%} Render the logo set twice so the -50% loop is seamless {%- endcomment -%}
+      {%- for n in (1..2) -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.image -%}
+            {{ block.settings.image | image_url: width: 240 | image_tag: class: 'logo', loading: 'lazy' }}
+          {%- else -%}
+            {%- assign fallback_logo = fallback_logos[forloop.index0] -%}
+            <img src="{{ fallback_logo | asset_url }}" class="logo" alt="{{ block.settings.name | escape }}" loading="lazy" width="240" height="80"{% if n == 2 %} aria-hidden="true"{% endif %} {{ block.shopify_attributes }}>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Press Logos",
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo image" },
+        { "type": "text", "id": "name", "label": "Fallback text", "default": "BRAND" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "UC Press Logos",
+    "blocks": [
+      { "type": "logo", "settings": { "name": "VOXDATA" } },
+      { "type": "logo", "settings": { "name": "WESTCLIFF" } },
+      { "type": "logo", "settings": { "name": "Sage" } },
+      { "type": "logo", "settings": { "name": "BIG BROTHER" } },
+      { "type": "logo", "settings": { "name": "DRAGONS' DEN" } },
+      { "type": "logo", "settings": { "name": "BEYOND THE BEAT" } },
+      { "type": "logo", "settings": { "name": "thermomix" } },
+      { "type": "logo", "settings": { "name": "intel" } }
+    ]
+  }]
+}
+{% endschema %}

@@ -1,0 +1,118 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "uc_utility": {
+      "type": "uc-utility-bar",
+      "settings": {}
+    },
+    "uc_header": {
+      "type": "uc-header",
+      "blocks": {
+        "home": {
+          "type": "link",
+          "settings": {
+            "label": "Home",
+            "link": "/"
+          }
+        },
+        "collection": {
+          "type": "link",
+          "settings": {
+            "label": "Collection",
+            "link": "/collections/all"
+          }
+        },
+        "wall": {
+          "type": "link",
+          "settings": {
+            "label": "Custom Wall Art",
+            "link": "/collections/wall-art"
+          }
+        },
+        "apparel": {
+          "type": "link",
+          "settings": {
+            "label": "Custom Apparel",
+            "link": "/collections/apparel"
+          }
+        },
+        "bulk": {
+          "type": "link",
+          "settings": {
+            "label": "Bulk Order",
+            "link": "/collections/all"
+          }
+        },
+        "signage": {
+          "type": "link",
+          "settings": {
+            "label": "Signage & Branding",
+            "link": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "home",
+        "collection",
+        "wall",
+        "apparel",
+        "bulk",
+        "signage"
+      ],
+      "settings": {}
+    },
+    "uc_promo": {
+      "type": "uc-promo-banner",
+      "blocks": {
+        "t1": {
+          "type": "tier",
+          "settings": {
+            "category": "1 WALL ART",
+            "percent": "10%",
+            "suffix": "EXTRA OFF"
+          }
+        },
+        "t2": {
+          "type": "tier",
+          "settings": {
+            "category": "2 WALL ART",
+            "percent": "20%",
+            "suffix": "EXTRA OFF"
+          }
+        },
+        "t3": {
+          "type": "tier",
+          "settings": {
+            "category": "3 WALL ART",
+            "percent": "30%",
+            "suffix": "EXTRA OFF"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "offer": "50% OFF",
+        "offer_sub": "ALL WALL ART"
+      }
+    }
+  },
+  "order": [
+    "uc_utility",
+    "uc_header",
+    "uc_promo"
+  ]
+}

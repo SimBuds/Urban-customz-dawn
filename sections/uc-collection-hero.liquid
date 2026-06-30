@@ -1,0 +1,76 @@
+{%- comment -%} Urban Customz — Collection Hero Grid (6 cards: 2 large + tall + 3 small) {%- endcomment -%}
+
+{%- style -%}
+  #uc-hero-{{ section.id }}{ max-width:1500px;margin:32px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-hero-{{ section.id }} .uc-grid{ display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,200px);gap:14px; }
+  #uc-hero-{{ section.id }} .uc-card{ position:relative;border-radius:10px;overflow:hidden;display:block;text-decoration:none; }
+  #uc-hero-{{ section.id }} .uc-card img,
+  #uc-hero-{{ section.id }} .uc-card svg{ position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
+  #uc-hero-{{ section.id }} .uc-card .ov{ position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88),rgba(0,0,0,.45) 38%,transparent 72%); }
+  #uc-hero-{{ section.id }} .uc-card .cap{ position:absolute;left:18px;right:18px;bottom:18px;color:#fff;z-index:2;text-shadow:0 1px 3px rgba(0,0,0,.55); }
+  #uc-hero-{{ section.id }} .uc-card .cap h3{ font-weight:700;font-size:17px;margin:0; }
+  #uc-hero-{{ section.id }} .uc-card .cap p{ font-size:12px;color:#d8d8d8;margin:2px 0 0; }
+  /* placements */
+  #uc-hero-{{ section.id }} .uc-card:nth-child(1){ grid-column:1 / span 2;grid-row:1; }
+  #uc-hero-{{ section.id }} .uc-card:nth-child(2){ grid-column:3;grid-row:1; }
+  #uc-hero-{{ section.id }} .uc-card:nth-child(3){ grid-column:4;grid-row:1 / span 2; }
+  #uc-hero-{{ section.id }} .uc-card:nth-child(4){ grid-column:1;grid-row:2; }
+  #uc-hero-{{ section.id }} .uc-card:nth-child(5){ grid-column:2;grid-row:2; }
+  #uc-hero-{{ section.id }} .uc-card:nth-child(6){ grid-column:3;grid-row:2; }
+  @media (max-width:749px){
+    #uc-hero-{{ section.id }} .uc-grid{ grid-template-columns:1fr 1fr;grid-template-rows:none;gap:10px; }
+    #uc-hero-{{ section.id }} .uc-card{ grid-column:auto !important;grid-row:auto !important;aspect-ratio:1/1; }
+    #uc-hero-{{ section.id }} .uc-card:nth-child(1){ grid-column:1 / span 2 !important; }
+  }
+{%- endstyle -%}
+
+<div id="uc-hero-{{ section.id }}">
+  <div class="uc-grid">
+    {%- for block in section.blocks -%}
+      <a class="uc-card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+        {%- if block.settings.image -%}
+          {{ block.settings.image | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '50vw', widths: '300,600,900,1100' }}
+        {%- else -%}
+          {%- assign fallback_images = 'uc-hero-wall-art.webp|uc-hero-apparel.webp|uc-hero-merch.webp|uc-hero-bulk.webp|uc-hero-print-shop.webp|uc-hero-apparel-collection.webp' | split: '|' -%}
+          {%- assign fallback_image = fallback_images[forloop.index0] -%}
+          <img src="{{ fallback_image | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1100" height="600">
+        {%- endif -%}
+        <div class="ov"></div>
+        <div class="cap">
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.subtitle }}</p>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Collection Hero",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Collection card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Collection" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "UC Collection Hero",
+    "blocks": [
+      { "type": "card", "settings": { "title": "Our Wall Art Collection", "subtitle": "Premium wall art to elevate any room." } },
+      { "type": "card", "settings": { "title": "Custom Apparel", "subtitle": "Create Your Masterpiece" } },
+      { "type": "card", "settings": { "title": "Skip the Merch Line", "subtitle": "Custom gear for your next concert" } },
+      { "type": "card", "settings": { "title": "Bulk Orders", "subtitle": "Volume discounts applied." } },
+      { "type": "card", "settings": { "title": "Custom Wall Art", "subtitle": "Upload Your Own Photos." } },
+      { "type": "card", "settings": { "title": "Our Apparel Collection", "subtitle": "Ready-to-wear designs." } }
+    ]
+  }]
+}
+{% endschema %}

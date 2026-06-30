@@ -1,0 +1,52 @@
+{%- comment -%} Urban Customz — Feature Icons strip {%- endcomment -%}
+
+{%- style -%}
+  #uc-feat-{{ section.id }}{ background:{{ section.settings.bg }};padding:48px 24px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-feat-{{ section.id }} .grid{ max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);gap:24px;text-align:center; }
+  #uc-feat-{{ section.id }} .ic{ font-size:42px;line-height:1; }
+  #uc-feat-{{ section.id }} .ic img,
+  #uc-feat-{{ section.id }} .ic svg{ height:56px;width:auto;object-fit:contain; }
+  #uc-feat-{{ section.id }} .lbl{ font-weight:700;font-size:15px;margin-top:14px; }
+  @media (max-width:749px){ #uc-feat-{{ section.id }} .grid{ grid-template-columns:1fr;gap:32px; } }
+{%- endstyle -%}
+
+<div id="uc-feat-{{ section.id }}">
+  <div class="grid">
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        <div class="ic">
+          {%- if block.settings.image -%}{{ block.settings.image | image_url: width: 120 | image_tag: loading: 'lazy' }}{%- else -%}{{ block.settings.emoji }}{%- endif -%}
+        </div>
+        <div class="lbl">{{ block.settings.label }}</div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Feature Icons",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Background", "default": "#f4f4f4" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Icon image (optional)" },
+        { "type": "text", "id": "emoji", "label": "Emoji fallback", "default": "📦" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Made in Canada" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "UC Feature Icons",
+    "blocks": [
+      { "type": "feature", "settings": { "emoji": "🖼", "label": "Premium Based Only" } },
+      { "type": "feature", "settings": { "emoji": "🖨", "label": "High-Definition Detail" } },
+      { "type": "feature", "settings": { "emoji": "📦", "label": "Made in Canada" } }
+    ]
+  }]
+}
+{% endschema %}

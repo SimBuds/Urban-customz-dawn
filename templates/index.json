@@ -1,0 +1,486 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "uc_hero": {
+      "type": "uc-collection-hero",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "title": "Our Wall Art Collection",
+            "subtitle": "Premium wall art to elevate any room."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "title": "Custom Apparel",
+            "subtitle": "Create Your Masterpiece"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "title": "Skip the Merch Line",
+            "subtitle": "Custom gear for your next concert"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "title": "Bulk Orders",
+            "subtitle": "Volume discounts applied."
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "title": "Custom Wall Art",
+            "subtitle": "Upload Your Own Photos."
+          }
+        },
+        "c6": {
+          "type": "card",
+          "settings": {
+            "title": "Our Apparel Collection",
+            "subtitle": "Ready-to-wear designs."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {}
+    },
+    "uc_press": {
+      "type": "uc-press-logos",
+      "blocks": {
+        "l1": {
+          "type": "logo",
+          "settings": {
+            "name": "VOXDATA"
+          }
+        },
+        "l2": {
+          "type": "logo",
+          "settings": {
+            "name": "WESTCLIFF"
+          }
+        },
+        "l3": {
+          "type": "logo",
+          "settings": {
+            "name": "Sage"
+          }
+        },
+        "l4": {
+          "type": "logo",
+          "settings": {
+            "name": "BIG BROTHER"
+          }
+        },
+        "l5": {
+          "type": "logo",
+          "settings": {
+            "name": "Hugo Boss"
+          }
+        },
+        "l6": {
+          "type": "logo",
+          "settings": {
+            "name": "BEYOND THE BEAT"
+          }
+        },
+        "l7": {
+          "type": "logo",
+          "settings": {
+            "name": "thermomix"
+          }
+        },
+        "l8": {
+          "type": "logo",
+          "settings": {
+            "name": "intel"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5",
+        "l6",
+        "l7",
+        "l8"
+      ],
+      "settings": {}
+    },
+    "uc_customizing": {
+      "type": "uc-start-customizing",
+      "blocks": {
+        "p1": {
+          "type": "item",
+          "settings": {
+            "name": "Adult Hoodies"
+          }
+        },
+        "p2": {
+          "type": "item",
+          "settings": {
+            "name": "Men's Crewnecks"
+          }
+        },
+        "p3": {
+          "type": "item",
+          "settings": {
+            "name": "Adult T-shirts"
+          }
+        },
+        "p4": {
+          "type": "item",
+          "settings": {
+            "name": "Polo Shirts"
+          }
+        },
+        "p5": {
+          "type": "item",
+          "settings": {
+            "name": "Adult Zip-Ups"
+          }
+        },
+        "p6": {
+          "type": "item",
+          "settings": {
+            "name": "Quarter-Zip"
+          }
+        },
+        "p7": {
+          "type": "item",
+          "settings": {
+            "name": "Kids' Hoodies"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7"
+      ],
+      "settings": {
+        "heading": "Start Customizing",
+        "tabs": "Apparel, Branding, Wall Art"
+      }
+    },
+    "uc_bestsellers": {
+      "type": "uc-product-row",
+      "blocks": {
+        "ch1": {
+          "type": "chip",
+          "settings": {
+            "label": "Sports Legends"
+          }
+        },
+        "ch2": {
+          "type": "chip",
+          "settings": {
+            "label": "Movies, TV & Superheroes"
+          }
+        },
+        "ch3": {
+          "type": "chip",
+          "settings": {
+            "label": "Music Icons"
+          }
+        },
+        "ch4": {
+          "type": "chip",
+          "settings": {
+            "label": "Luxury & Brands"
+          }
+        },
+        "ch5": {
+          "type": "chip",
+          "settings": {
+            "label": "Fashion & Streetwear"
+          }
+        },
+        "ch6": {
+          "type": "chip",
+          "settings": {
+            "label": "Classic Art & Masters"
+          }
+        }
+      },
+      "block_order": [
+        "ch1",
+        "ch2",
+        "ch3",
+        "ch4",
+        "ch5",
+        "ch6"
+      ],
+      "settings": {
+        "heading": "Shop Bestsellers",
+        "tabs": "Wall Art, Apparel",
+        "collection": "home-bestsellers",
+        "products_to_show": 5
+      }
+    },
+    "uc_commission": {
+      "type": "uc-commission",
+      "settings": {}
+    },
+    "uc_new_arrivals": {
+      "type": "uc-new-arrivals",
+      "settings": {
+        "collection": "new-arrivals"
+      }
+    },
+    "uc_new_deals": {
+      "type": "uc-product-row",
+      "blocks": {
+        "d1": {
+          "type": "chip",
+          "settings": {
+            "label": "Music Icons"
+          }
+        },
+        "d2": {
+          "type": "chip",
+          "settings": {
+            "label": "Sport & Athletes"
+          }
+        },
+        "d3": {
+          "type": "chip",
+          "settings": {
+            "label": "Fashion & Streetwear"
+          }
+        },
+        "d4": {
+          "type": "chip",
+          "settings": {
+            "label": "100 Dollar Bills"
+          }
+        },
+        "d5": {
+          "type": "chip",
+          "settings": {
+            "label": "Money & Hustle"
+          }
+        },
+        "d6": {
+          "type": "chip",
+          "settings": {
+            "label": "Movies, TV & Superheroes"
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5",
+        "d6"
+      ],
+      "settings": {
+        "heading": "New Deals",
+        "tabs": "Wall Art, Apparel",
+        "collection": "new-deals",
+        "products_to_show": 5
+      }
+    },
+    "uc_why": {
+      "type": "uc-why-choose-us",
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "label": "Wall Art"
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "label": "Apparel"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2"
+      ],
+      "settings": {}
+    },
+    "uc_features": {
+      "type": "uc-feature-icons",
+      "blocks": {
+        "i1": {
+          "type": "feature",
+          "settings": {
+            "emoji": "🖼",
+            "label": "Premium Based Only"
+          }
+        },
+        "i2": {
+          "type": "feature",
+          "settings": {
+            "emoji": "🖨",
+            "label": "High-Definition Detail"
+          }
+        },
+        "i3": {
+          "type": "feature",
+          "settings": {
+            "emoji": "📦",
+            "label": "Made in Canada"
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3"
+      ],
+      "settings": {}
+    },
+    "uc_testimonials": {
+      "type": "uc-testimonials",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "ago": "2 years ago",
+            "text": "Abhishek was too polite and amazing. Gave me lot of suggestions to choose a good clothing....",
+            "name": "Vaishnavi Rao",
+            "reviews": "83"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "ago": "3 years ago",
+            "text": "Was visiting from Calgary. Checked out the store on Thursday and the guys in the store were great help for a piece I got!",
+            "name": "Wendy Lam",
+            "reviews": "22"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "ago": "a year ago",
+            "text": "Got a cool new chucky t shirt to go with my socks",
+            "name": "Oliver O",
+            "reviews": "38"
+          }
+        },
+        "r4": {
+          "type": "review",
+          "settings": {
+            "ago": "2 years ago",
+            "text": "If you want someone to make your vision come to life. You have to see Sophie at Urban Customz Dufferin Mall!...",
+            "name": "Marky Mark",
+            "reviews": "16"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {}
+    },
+    "uc_videos": {
+      "type": "uc-community-videos",
+      "blocks": {
+        "v1": {
+          "type": "reel",
+          "settings": {}
+        },
+        "v2": {
+          "type": "reel",
+          "settings": {}
+        },
+        "v3": {
+          "type": "reel",
+          "settings": {}
+        },
+        "v4": {
+          "type": "reel",
+          "settings": {}
+        },
+        "v5": {
+          "type": "reel",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5"
+      ],
+      "settings": {}
+    },
+    "uc_locations": {
+      "type": "uc-store-locations",
+      "blocks": {
+        "loc1": {
+          "type": "location",
+          "settings": {}
+        },
+        "loc2": {
+          "type": "location",
+          "settings": {}
+        },
+        "loc3": {
+          "type": "location",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "loc1",
+        "loc2",
+        "loc3"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "uc_hero",
+    "uc_press",
+    "uc_customizing",
+    "uc_bestsellers",
+    "uc_commission",
+    "uc_new_arrivals",
+    "uc_new_deals",
+    "uc_why",
+    "uc_features",
+    "uc_testimonials",
+    "uc_videos",
+    "uc_locations"
+  ]
+}

@@ -1,0 +1,68 @@
+{%- style -%}
+  #uc-footer-{{ section.id }} { background:#000;color:#fff;font-family:var(--font-body-family),Arial,sans-serif;margin-top:54px; }
+  #uc-footer-{{ section.id }} .wrap { max-width:1500px;margin:0 auto;padding:58px 28px 24px;display:grid;grid-template-columns:1.35fr .7fr .7fr 1.35fr;gap:48px; }
+  #uc-footer-{{ section.id }} img { width:150px;height:auto;margin-bottom:18px; }
+  #uc-footer-{{ section.id }} p, #uc-footer-{{ section.id }} a, #uc-footer-{{ section.id }} label { color:#fff;font-size:13px;line-height:1.8;text-decoration:none; }
+  #uc-footer-{{ section.id }} h3 { color:#fff;font-size:18px;margin:0 0 16px;font-weight:800; }
+  #uc-footer-{{ section.id }} ul { list-style:none;margin:0;padding:0; }
+  #uc-footer-{{ section.id }} input { width:100%;height:42px;border:1px solid #777;border-radius:8px;background:#000;color:#fff;padding:0 14px; }
+  #uc-footer-{{ section.id }} button { height:42px;border:0;border-radius:8px;background:#f4202a;color:#fff;padding:0 34px;font-size:16px;cursor:pointer; }
+  #uc-footer-{{ section.id }} .form { display:grid;grid-template-columns:1fr 170px;gap:14px;margin-top:10px; }
+  #uc-footer-{{ section.id }} .contact { margin-top:22px; }
+  #uc-footer-{{ section.id }} .social { display:flex;gap:24px;margin-top:22px;color:#f4202a; }
+  #uc-footer-{{ section.id }} .social a { color:#f4202a;display:flex; }
+  #uc-footer-{{ section.id }} .social svg { width:22px;height:22px;display:block; }
+  #uc-footer-{{ section.id }} .bottom { border-top:1px solid rgba(255,255,255,.16);max-width:1500px;margin:0 auto;padding:12px 28px 18px;color:#aaa;font-size:11px; }
+  @media (max-width: 989px) { #uc-footer-{{ section.id }} .wrap { grid-template-columns:1fr 1fr; } }
+  @media (max-width: 749px) { #uc-footer-{{ section.id }} .wrap { grid-template-columns:1fr;gap:28px; } #uc-footer-{{ section.id }} .form { grid-template-columns:1fr; } }
+{%- endstyle -%}
+
+<footer id="uc-footer-{{ section.id }}">
+  <div class="wrap">
+    <div>
+      <img src="{{ 'uc-logo.webp' | asset_url }}" alt="{{ shop.name | escape }}" width="1082" height="623">
+      <p>The ultimate destination for urban wall art, posters, and custom apparel. Together, let's build your vibe with our diverse, high-quality offerings.</p>
+      <p class="contact">☎ +1 (888) 307-4622<br>✉ info@urbancustomz.com</p>
+    </div>
+    <div>
+      <h3>Quick links</h3>
+      <ul>
+        <li><a href="{{ routes.search_url }}">Search</a></li>
+        <li><a href="/collections/all">Shop All</a></li>
+        <li><a href="/collections/wall-art">Wall Art</a></li>
+        <li><a href="/collections/apparel">Apparel</a></li>
+        <li><a href="{{ routes.account_url }}">Account</a></li>
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Policies</h3>
+      <ul>
+        <li><a href="/policies/terms-of-service">Terms and Services</a></li>
+        <li><a href="/policies/refund-policy">Refund Policy</a></li>
+        <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Subscribe to our emails</h3>
+      <p>Sign up to receive Urban Customz emails and get first dibs on new arrivals, sales, exclusive content, events and more.</p>
+      <form method="post" action="/contact#contact_form" accept-charset="UTF-8" class="form">
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="✓">
+        <label class="visually-hidden" for="uc-footer-email-{{ section.id }}">Email</label>
+        <input id="uc-footer-email-{{ section.id }}" type="email" name="contact[email]" placeholder="Email">
+        <button type="submit">SEND</button>
+      </form>
+      <div class="social" aria-label="Social links">
+        <a href="https://www.facebook.com/" aria-label="Facebook">{{ 'icon-facebook.svg' | inline_asset_content }}</a>
+        <a href="https://www.instagram.com/" aria-label="Instagram">{{ 'icon-instagram.svg' | inline_asset_content }}</a>
+        <a href="https://www.tiktok.com/" aria-label="TikTok">{{ 'icon-tiktok.svg' | inline_asset_content }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">Urban Customz demo theme for Shopify Dawn.</div>
+</footer>
+
+{% schema %}
+{ "name": "UC Footer", "presets": [{ "name": "UC Footer" }] }
+{% endschema %}

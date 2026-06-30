@@ -1,0 +1,84 @@
+{%- comment -%} Urban Customz — Start Customizing (product-type cards + tabs) {%- endcomment -%}
+
+{%- style -%}
+  #uc-cust-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-cust-{{ section.id }} .head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px; }
+  #uc-cust-{{ section.id }} h2{ font-size:30px;font-weight:700;margin:0; }
+  #uc-cust-{{ section.id }} .ctrls{ display:flex;align-items:center;gap:28px; }
+  #uc-cust-{{ section.id }} .tabs{ display:flex;gap:22px;font-size:14px; }
+  #uc-cust-{{ section.id }} .tabs span{ cursor:pointer;padding-bottom:4px;color:#aaa; }
+  #uc-cust-{{ section.id }} .tabs span.on{ color:#000;font-weight:600;border-bottom:2px solid #000; }
+  #uc-cust-{{ section.id }} .arrow{ width:40px;height:40px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px; }
+  #uc-cust-{{ section.id }} .cards{ display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);gap:14px; }
+  #uc-cust-{{ section.id }} .card{ background:#f5f5f5;border-radius:10px;padding:18px 10px;text-align:center;text-decoration:none;color:inherit; }
+  #uc-cust-{{ section.id }} .card .ph{ height:110px;border-radius:8px;overflow:hidden;margin-bottom:14px;display:flex;align-items:center;justify-content:center; }
+  #uc-cust-{{ section.id }} .card .ph img,
+  #uc-cust-{{ section.id }} .card .ph svg{ width:100%;height:100%;object-fit:contain; }
+  #uc-cust-{{ section.id }} .card .nm{ font-weight:600;font-size:13px;line-height:1.3; }
+  @media (max-width:990px){ #uc-cust-{{ section.id }} .cards{ grid-template-columns:repeat(4,1fr); } }
+  @media (max-width:749px){ #uc-cust-{{ section.id }} .cards{ grid-template-columns:repeat(2,1fr); } }
+{%- endstyle -%}
+
+<div id="uc-cust-{{ section.id }}">
+  <div class="head">
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="ctrls">
+      <div class="tabs">
+        {%- assign tabs = section.settings.tabs | split: ',' -%}
+        {%- for t in tabs -%}
+          <span class="{% if forloop.first %}on{% endif %}">{{ t | strip }}</span>
+        {%- endfor -%}
+      </div>
+      <div class="arrow">›</div>
+    </div>
+  </div>
+  <div class="cards">
+    {%- for block in section.blocks -%}
+      <a class="card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+        <div class="ph">
+          {%- if block.settings.image -%}
+            {{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+          {%- else -%}
+            {%- assign fallback_images = 'uc-custom-hoodie.avif|uc-custom-crewneck.avif|uc-custom-tshirt.avif|uc-custom-polo.webp|uc-custom-zip.avif|uc-custom-quarter.avif|uc-custom-kids.avif' | split: '|' -%}
+            {%- assign fallback_image = fallback_images[forloop.index0] -%}
+            <img src="{{ fallback_image | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="300" height="300">
+          {%- endif -%}
+        </div>
+        <div class="nm">{{ block.settings.name }}</div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Start Customizing",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Start Customizing" },
+    { "type": "text", "id": "tabs", "label": "Tabs (comma separated)", "default": "Apparel, Branding, Wall Art" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Product type",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Adult Hoodies" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "UC Start Customizing",
+    "blocks": [
+      { "type": "item", "settings": { "name": "Adult Hoodies" } },
+      { "type": "item", "settings": { "name": "Men's Crewnecks" } },
+      { "type": "item", "settings": { "name": "Adult T-shirts" } },
+      { "type": "item", "settings": { "name": "Polo Shirts" } },
+      { "type": "item", "settings": { "name": "Adult Zip-Ups" } },
+      { "type": "item", "settings": { "name": "Quarter-Zip" } },
+      { "type": "item", "settings": { "name": "Kids' Hoodies" } }
+    ]
+  }]
+}
+{% endschema %}

@@ -1,0 +1,68 @@
+{%- style -%}
+  #uc-header-{{ section.id }} { background:#000;color:#fff;font-family:var(--font-body-family),Arial,sans-serif; }
+  #uc-header-{{ section.id }} .wrap { max-width:1500px;margin:0 auto;padding:18px 28px;display:grid;grid-template-columns:150px 1fr auto;align-items:center;gap:28px; }
+  #uc-header-{{ section.id }} .logo img { display:block;width:96px;height:auto; }
+  #uc-header-{{ section.id }} .nav { display:flex;justify-content:center;gap:34px;font-size:14px; }
+  #uc-header-{{ section.id }} .nav a { color:#fff;text-decoration:none; }
+  #uc-header-{{ section.id }} .nav a[aria-current='page'], #uc-header-{{ section.id }} .nav a:hover { color:#fff;border-bottom:3px solid #f4202a;padding-bottom:10px; }
+  #uc-header-{{ section.id }} .icons { display:flex;gap:22px;align-items:center; }
+  #uc-header-{{ section.id }} .icons a { color:#fff;text-decoration:none;line-height:1;display:flex; }
+  #uc-header-{{ section.id }} .icons svg { width:22px;height:22px;display:block; }
+  @media (max-width: 989px) {
+    #uc-header-{{ section.id }} .wrap { grid-template-columns:1fr auto; }
+    #uc-header-{{ section.id }} .nav { grid-column:1 / -1;justify-content:flex-start;overflow-x:auto;gap:22px;padding-bottom:8px; }
+  }
+  @media (max-width: 749px) {
+    #uc-header-{{ section.id }} .wrap { padding:14px 18px;gap:14px; }
+    #uc-header-{{ section.id }} .logo img { width:78px; }
+    #uc-header-{{ section.id }} .icons { gap:14px;font-size:18px; }
+    #uc-header-{{ section.id }} .nav { font-size:13px; }
+  }
+{%- endstyle -%}
+
+<header id="uc-header-{{ section.id }}">
+  <div class="wrap">
+    <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      <img src="{{ 'uc-logo.webp' | asset_url }}" alt="{{ shop.name | escape }}" loading="eager" width="1082" height="623">
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link | default: routes.root_url }}" {% if forloop.first %}aria-current="page"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="icons" aria-label="Store tools">
+      <a href="{{ routes.search_url }}" aria-label="Search">{{ 'icon-search.svg' | inline_asset_content }}</a>
+      <a href="{{ routes.account_url }}" aria-label="Account">{{ 'icon-account.svg' | inline_asset_content }}</a>
+      <a href="{{ routes.cart_url }}" aria-label="Cart">{{ 'icon-cart.svg' | inline_asset_content }}</a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "UC Header",
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Navigation link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Home" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UC Header",
+      "blocks": [
+        { "type": "link", "settings": { "label": "Home" } },
+        { "type": "link", "settings": { "label": "Collection" } },
+        { "type": "link", "settings": { "label": "Custom Wall Art" } },
+        { "type": "link", "settings": { "label": "Custom Apparel" } },
+        { "type": "link", "settings": { "label": "Bulk Order" } },
+        { "type": "link", "settings": { "label": "Signage & Branding" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

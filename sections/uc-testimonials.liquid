@@ -1,0 +1,75 @@
+{%- comment -%} Urban Customz — Testimonials (Google-review style cards) {%- endcomment -%}
+
+{%- style -%}
+  #uc-test-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-test-{{ section.id }} h2{ font-size:26px;font-weight:700;margin:0 0 24px; }
+  #uc-test-{{ section.id }} .grid{ display:grid;grid-template-columns:repeat(4,1fr);gap:18px; }
+  #uc-test-{{ section.id }} .card{ background:#f4f4f4;border-radius:8px;padding:16px; }
+  #uc-test-{{ section.id }} .top{ display:flex;align-items:center;justify-content:space-between;margin-bottom:8px; }
+  #uc-test-{{ section.id }} .stars{ color:#fbb000;font-size:14px;letter-spacing:1px; }
+  #uc-test-{{ section.id }} .ago{ font-size:11px;color:#999; }
+  #uc-test-{{ section.id }} .txt{ font-size:13px;color:#444;line-height:1.5; }
+  #uc-test-{{ section.id }} .author{ display:flex;align-items:center;gap:10px;margin-top:14px; }
+  #uc-test-{{ section.id }} .av{ width:34px;height:34px;border-radius:50%;background:#cfcfcf;object-fit:cover; }
+  #uc-test-{{ section.id }} .nm{ font-size:13px;font-weight:600; }
+  #uc-test-{{ section.id }} .meta{ font-size:11px;color:#999; }
+  @media (max-width:990px){ #uc-test-{{ section.id }} .grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:749px){ #uc-test-{{ section.id }} .grid{ grid-template-columns:1fr; } }
+{%- endstyle -%}
+
+<div id="uc-test-{{ section.id }}">
+  <h2>{{ section.settings.heading }}</h2>
+  <div class="grid">
+    {%- for block in section.blocks -%}
+      {%- assign full = block.settings.rating | default: 5 | round -%}
+      <div class="card-wrap" {{ block.shopify_attributes }}>
+        <div class="card">
+          <div class="top">
+            <span class="stars">{% for i in (1..5) %}{% if i <= full %}★{% else %}☆{% endif %}{% endfor %}</span>
+            <span class="ago">{{ block.settings.ago }}</span>
+          </div>
+          <div class="txt">{{ block.settings.text }}</div>
+        </div>
+        <div class="author">
+          {%- if block.settings.avatar -%}{{ block.settings.avatar | image_url: width: 80 | image_tag: class: 'av', loading: 'lazy' }}{%- else -%}<span class="av"></span>{%- endif -%}
+          <div>
+            <div class="nm">{{ block.settings.name }} <span style="color:#3897f0">✔</span></div>
+            <div class="meta">Local Guide · {{ block.settings.reviews }} reviews</div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Testimonials",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Testimonials" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Rating", "default": 5 },
+        { "type": "text", "id": "ago", "label": "Time ago", "default": "2 years ago" },
+        { "type": "textarea", "id": "text", "label": "Review text", "default": "Amazing service and quality." },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Reviewer" },
+        { "type": "text", "id": "reviews", "label": "Review count", "default": "20" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "UC Testimonials",
+    "blocks": [
+      { "type": "review", "settings": { "name": "Vaishnavi Rao", "reviews": "83", "ago": "2 years ago", "text": "Abhishek was too polite and amazing. Gave me lot of suggestions to choose a good clothing...." } },
+      { "type": "review", "settings": { "name": "Wendy Lam", "reviews": "22", "ago": "3 years ago", "text": "Was visiting from Calgary. Checked out the store on Thursday and the guys in the store were great help for a piece I got!" } },
+      { "type": "review", "settings": { "name": "Oliver O", "reviews": "38", "ago": "a year ago", "rating": 4, "text": "Got a cool new chucky t shirt to go with my socks" } },
+      { "type": "review", "settings": { "name": "Marky Mark", "reviews": "16", "ago": "2 years ago", "text": "If you want someone to make your vision come to life. You have to see Sophie at Urban Customz Dufferin Mall!..." } }
+    ]
+  }]
+}
+{% endschema %}
