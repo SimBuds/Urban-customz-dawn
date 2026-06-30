@@ -5,38 +5,43 @@
 {%- endcomment -%}
 
 {%- style -%}
-  #uc-row-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
-  #uc-row-{{ section.id }} .head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:16px; }
+  #uc-row-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 0;padding:0 var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-row-{{ section.id }} .head{ display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:22px;gap:16px; }
   #uc-row-{{ section.id }} h2{ font-size:30px;font-weight:700;margin:0; }
-  #uc-row-{{ section.id }} .ctrls{ display:flex;align-items:center;gap:28px; }
-  #uc-row-{{ section.id }} .tabs{ display:flex;gap:22px;font-size:14px; }
+  #uc-row-{{ section.id }} .ctrls{ display:flex;align-items:center;justify-content:flex-end;gap:22px; }
+  #uc-row-{{ section.id }} .tabs{ display:flex;justify-content:center;gap:22px;font-size:15px; }
   #uc-row-{{ section.id }} .tabs span{ cursor:pointer;padding-bottom:4px;color:#aaa; }
   #uc-row-{{ section.id }} .tabs span.on{ color:#000;font-weight:600;border-bottom:2px solid #000; }
-  #uc-row-{{ section.id }} .arrow{ width:40px;height:40px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px; }
+  #uc-row-{{ section.id }} .arrows{ display:flex;align-items:center;gap:10px; }
+  #uc-row-{{ section.id }} .arrow{ font-size:18px; }
   #uc-row-{{ section.id }} .chips{ display:flex;gap:10px;margin-bottom:24px;overflow-x:auto;padding-bottom:4px; }
   #uc-row-{{ section.id }} .chip{ white-space:nowrap;border:1px solid #ddd;border-radius:18px;padding:8px 16px;font-size:13px;font-weight:500;background:#f4f4f4;cursor:pointer;text-decoration:none;color:inherit; }
   #uc-row-{{ section.id }} .chip.on{ border-color:#111;background:#fff; }
-  #uc-row-{{ section.id }} .prods{ display:grid;grid-template-columns:repeat(5,1fr);gap:14px; }
-  #uc-row-{{ section.id }} .prod{ background:#f4f4f4;border-radius:10px;padding:16px 12px 18px;text-align:center;text-decoration:none;color:inherit;display:block; }
-  #uc-row-{{ section.id }} .prod .img{ height:215px;display:flex;align-items:center;justify-content:center;margin-bottom:16px; }
+  #uc-row-{{ section.id }} .prods{ display:flex;gap:14px;overflow-x:auto;padding:0 2px 8px; }
+  #uc-row-{{ section.id }} .prod{ background:#f4f4f4;border-radius:var(--uc-radius);padding:16px 12px 18px;text-align:center;text-decoration:none;color:inherit;display:block;flex:0 0 calc((100% - 56px)/5);min-width:188px;scroll-snap-align:start;transition:transform 160ms ease,box-shadow 160ms ease; }
+  #uc-row-{{ section.id }} .prod:hover{ transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.08); }
+  #uc-row-{{ section.id }} .prod .img{ height:205px;display:flex;align-items:center;justify-content:center;margin-bottom:16px; }
   #uc-row-{{ section.id }} .prod .img img,
-  #uc-row-{{ section.id }} .prod .img svg{ max-height:215px;max-width:100%;width:auto;border-radius:4px;box-shadow:0 6px 18px rgba(0,0,0,.18); }
+  #uc-row-{{ section.id }} .prod .img svg{ max-height:205px;max-width:100%;width:auto;border-radius:4px;box-shadow:0 6px 18px rgba(0,0,0,.16); }
   #uc-row-{{ section.id }} .prod .nm{ font-weight:700;font-size:15px; }
   #uc-row-{{ section.id }} .prod .pr{ font-size:12px;color:#666;margin-top:4px; }
   #uc-row-{{ section.id }} .prod .pr b{ color:{{ section.settings.price_color }};font-weight:700; }
-  @media (max-width:990px){ #uc-row-{{ section.id }} .prods{ grid-template-columns:repeat(3,1fr); } }
-  @media (max-width:749px){ #uc-row-{{ section.id }} .prods{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:990px){ #uc-row-{{ section.id }} .prod{ flex-basis:calc((100% - 28px)/3); } }
+  @media (max-width:749px){ #uc-row-{{ section.id }} .head{ display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap; } #uc-row-{{ section.id }} .tabs{ order:3;width:100%;justify-content:flex-start; } #uc-row-{{ section.id }} .ctrls{ justify-content:flex-end; } #uc-row-{{ section.id }} .prod{ flex-basis:72%;min-width:210px; } }
 {%- endstyle -%}
 
 <div id="uc-row-{{ section.id }}" data-uc-section>
   <div class="head">
     <h2>{{ section.settings.heading }}</h2>
+    <div class="tabs">
+      {%- assign tabs = section.settings.tabs | split: ',' -%}
+      {%- for t in tabs -%}<span class="{% if forloop.first %}on{% endif %}">{{ t | strip }}</span>{%- endfor -%}
+    </div>
     <div class="ctrls">
-      <div class="tabs">
-        {%- assign tabs = section.settings.tabs | split: ',' -%}
-        {%- for t in tabs -%}<span class="{% if forloop.first %}on{% endif %}">{{ t | strip }}</span>{%- endfor -%}
+      <div class="arrows">
+        <button class="arrow uc-scroll-btn" type="button" data-uc-scroll="prev" aria-label="Previous products">‹</button>
+        <button class="arrow uc-scroll-btn" type="button" data-uc-scroll="next" aria-label="Next products">›</button>
       </div>
-      <button class="arrow uc-scroll-btn" type="button" data-uc-scroll="next" aria-label="Scroll products">›</button>
     </div>
   </div>
 
@@ -48,7 +53,7 @@
     </div>
   {%- endif -%}
 
-  <div class="prods" data-uc-track>
+  <div class="prods uc-track-scroll" data-uc-track>
     {%- assign coll = collections[section.settings.collection] -%}
     {%- if coll != blank and coll.products.size > 0 -%}
       {%- for product in coll.products limit: section.settings.products_to_show -%}

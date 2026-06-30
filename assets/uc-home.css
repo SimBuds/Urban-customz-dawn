@@ -3,6 +3,10 @@
   --uc-red: #f4202a;
   --uc-muted: #6f7782;
   --uc-card: #f4f4f4;
+  --uc-page-max: 1280px;
+  --uc-page-pad: 48px;
+  --uc-section-gap: 72px;
+  --uc-radius: 8px;
 }
 
 body.template-index {
@@ -28,7 +32,7 @@ body.template-index {
   width: 42px;
   height: 42px;
   border-radius: 999px;
-  background: #e6e6e6;
+  background: #ededed;
   color: #111;
   display: inline-flex;
   align-items: center;
@@ -36,13 +40,39 @@ body.template-index {
   font-size: 28px;
   line-height: 1;
   cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition:
+    background 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .uc-scroll-btn:hover {
-  background: #d7d7d7;
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.uc-scroll-btn:focus-visible {
+  outline: 2px solid var(--uc-red);
+  outline-offset: 3px;
+}
+
+.uc-track-scroll {
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.uc-track-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 @media screen and (max-width: 749px) {
+  :root {
+    --uc-page-pad: 18px;
+    --uc-section-gap: 52px;
+  }
+
   .uc-scroll-btn {
     width: 36px;
     height: 36px;

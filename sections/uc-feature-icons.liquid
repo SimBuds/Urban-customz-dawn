@@ -1,11 +1,11 @@
 {%- comment -%} Urban Customz — Feature Icons strip {%- endcomment -%}
 
 {%- style -%}
-  #uc-feat-{{ section.id }}{ background:{{ section.settings.bg }};padding:48px 24px;font-family:'Poppins',var(--font-body-family),sans-serif; }
-  #uc-feat-{{ section.id }} .grid{ max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);gap:24px;text-align:center; }
-  #uc-feat-{{ section.id }} .ic{ font-size:42px;line-height:1; }
+  #uc-feat-{{ section.id }}{ background:{{ section.settings.bg }};padding:48px var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-feat-{{ section.id }} .grid{ max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);gap:24px;text-align:center; }
+  #uc-feat-{{ section.id }} .ic{ color:#424242;line-height:1;display:flex;align-items:center;justify-content:center;min-height:62px; }
   #uc-feat-{{ section.id }} .ic img,
-  #uc-feat-{{ section.id }} .ic svg{ height:56px;width:auto;object-fit:contain; }
+  #uc-feat-{{ section.id }} .ic svg{ height:58px;width:58px;object-fit:contain;stroke:currentColor; }
   #uc-feat-{{ section.id }} .lbl{ font-weight:700;font-size:15px;margin-top:14px; }
   @media (max-width:749px){ #uc-feat-{{ section.id }} .grid{ grid-template-columns:1fr;gap:32px; } }
 {%- endstyle -%}
@@ -15,7 +15,15 @@
     {%- for block in section.blocks -%}
       <div {{ block.shopify_attributes }}>
         <div class="ic">
-          {%- if block.settings.image -%}{{ block.settings.image | image_url: width: 120 | image_tag: loading: 'lazy' }}{%- else -%}{{ block.settings.emoji }}{%- endif -%}
+          {%- if block.settings.image -%}
+            {{ block.settings.image | image_url: width: 120 | image_tag: loading: 'lazy' }}
+          {%- elsif forloop.index == 1 -%}
+            <svg viewBox="0 0 64 64" fill="none" stroke-width="3" aria-hidden="true"><rect x="10" y="14" width="34" height="28" rx="2"/><path d="M16 36l8-9 7 7 5-5 8 9"/><path d="M48 23h6v30H20v-7"/><path d="M24 20h.01"/></svg>
+          {%- elsif forloop.index == 2 -%}
+            <svg viewBox="0 0 64 64" fill="none" stroke-width="3" aria-hidden="true"><path d="M18 18h28v14H18z"/><path d="M14 32h36a6 6 0 0 1 6 6v10H8V38a6 6 0 0 1 6-6Z"/><path d="M20 48h24v8H20z"/><path d="M18 40h.01"/><path d="M48 40h.01"/></svg>
+          {%- else -%}
+            <svg viewBox="0 0 64 64" fill="none" stroke-width="3" aria-hidden="true"><path d="M12 24l20-10 20 10-20 10-20-10Z"/><path d="M12 24v20l20 10 20-10V24"/><path d="M32 34v20"/><path d="M22 19l20 10"/></svg>
+          {%- endif -%}
         </div>
         <div class="lbl">{{ block.settings.label }}</div>
       </div>
@@ -35,7 +43,7 @@
       "name": "Feature",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Icon image (optional)" },
-        { "type": "text", "id": "emoji", "label": "Emoji fallback", "default": "📦" },
+        { "type": "text", "id": "emoji", "label": "Legacy emoji fallback", "default": "box" },
         { "type": "text", "id": "label", "label": "Label", "default": "Made in Canada" }
       ]
     }
@@ -43,9 +51,9 @@
   "presets": [{
     "name": "UC Feature Icons",
     "blocks": [
-      { "type": "feature", "settings": { "emoji": "🖼", "label": "Premium Based Only" } },
-      { "type": "feature", "settings": { "emoji": "🖨", "label": "High-Definition Detail" } },
-      { "type": "feature", "settings": { "emoji": "📦", "label": "Made in Canada" } }
+      { "type": "feature", "settings": { "emoji": "frame", "label": "Premium Based Only" } },
+      { "type": "feature", "settings": { "emoji": "printer", "label": "High-Definition Detail" } },
+      { "type": "feature", "settings": { "emoji": "box", "label": "Made in Canada" } }
     ]
   }]
 }

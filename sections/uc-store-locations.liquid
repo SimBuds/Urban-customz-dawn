@@ -1,12 +1,13 @@
 {%- comment -%} Urban Customz — Store Locations {%- endcomment -%}
 
 {%- style -%}
-  #uc-loc-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;text-align:center;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-loc-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 0;padding:0 var(--uc-page-pad);text-align:center;font-family:'Poppins',var(--font-body-family),sans-serif; }
   #uc-loc-{{ section.id }} h2{ font-size:30px;font-weight:800;color:#555;margin:0; }
   #uc-loc-{{ section.id }} h2 .hl{ color:#ff2222; }
   #uc-loc-{{ section.id }} .sub{ color:#5a78c0;font-size:12px;font-weight:600;margin:14px 0 28px; }
-  #uc-loc-{{ section.id }} .grid{ display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);gap:24px; }
-  #uc-loc-{{ section.id }} .loc{ aspect-ratio:1/1;border-radius:6px;overflow:hidden;background:#222;display:block; }
+  #uc-loc-{{ section.id }} .grid{ max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);gap:22px; }
+  #uc-loc-{{ section.id }} .loc{ aspect-ratio:4/3;border-radius:var(--uc-radius);overflow:hidden;background:#222;display:block;transition:transform 160ms ease,box-shadow 160ms ease; }
+  #uc-loc-{{ section.id }} .loc:hover{ transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,.10); }
   #uc-loc-{{ section.id }} .loc img,
   #uc-loc-{{ section.id }} .loc svg{ width:100%;height:100%;object-fit:cover; }
   @media (max-width:749px){ #uc-loc-{{ section.id }} .grid{ grid-template-columns:1fr;} }

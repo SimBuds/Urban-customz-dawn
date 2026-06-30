@@ -337,21 +337,21 @@
         "i1": {
           "type": "feature",
           "settings": {
-            "emoji": "🖼",
+            "emoji": "frame",
             "label": "Premium Based Only"
           }
         },
         "i2": {
           "type": "feature",
           "settings": {
-            "emoji": "🖨",
+            "emoji": "printer",
             "label": "High-Definition Detail"
           }
         },
         "i3": {
           "type": "feature",
           "settings": {
-            "emoji": "📦",
+            "emoji": "box",
             "label": "Made in Canada"
           }
         }

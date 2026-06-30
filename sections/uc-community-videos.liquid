@@ -1,16 +1,17 @@
 {%- comment -%} Urban Customz — Community Videos (vertical reel carousel) {%- endcomment -%}
 
 {%- style -%}
-  #uc-vid-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-vid-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 0;padding:0 var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
   #uc-vid-{{ section.id }} h2{ font-size:28px;font-weight:800;margin:0; }
   #uc-vid-{{ section.id }} .lead{ color:#777;font-size:14px;margin:8px 0 28px; }
   #uc-vid-{{ section.id }} .row{ display:flex;gap:16px;align-items:center; }
-  #uc-vid-{{ section.id }} .nav{ font-size:22px;color:#888;cursor:pointer; }
-  #uc-vid-{{ section.id }} .track{ display:flex;gap:16px;overflow-x:auto;flex:1; }
-  #uc-vid-{{ section.id }} .reel{ flex:0 0 170px;aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#222; }
+  #uc-vid-{{ section.id }} .nav{ font-size:22px;color:#888;cursor:pointer;flex:0 0 auto; }
+  #uc-vid-{{ section.id }} .track{ display:flex;gap:16px;overflow-x:auto;flex:1;padding:0 2px 8px; }
+  #uc-vid-{{ section.id }} .reel{ flex:0 0 178px;aspect-ratio:9/16;border-radius:var(--uc-radius);overflow:hidden;background:#222;position:relative;scroll-snap-align:start; }
   #uc-vid-{{ section.id }} .reel img,
   #uc-vid-{{ section.id }} .reel video,
   #uc-vid-{{ section.id }} .reel svg{ width:100%;height:100%;object-fit:cover; }
+  @media (max-width:749px){ #uc-vid-{{ section.id }} .row{ gap:10px; } #uc-vid-{{ section.id }} .reel{ flex-basis:62%;min-width:180px; } }
 {%- endstyle -%}
 
 <div id="uc-vid-{{ section.id }}" data-uc-section>
@@ -18,7 +19,7 @@
   <div class="lead">{{ section.settings.subheading }}</div>
   <div class="row">
     <button class="nav uc-scroll-btn" type="button" data-uc-scroll="prev" aria-label="Previous videos">‹</button>
-    <div class="track" data-uc-track>
+    <div class="track uc-track-scroll" data-uc-track>
       {%- for block in section.blocks -%}
         <a class="reel" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
           {%- if block.settings.video != blank -%}
@@ -26,7 +27,7 @@
           {%- elsif block.settings.poster -%}
             {{ block.settings.poster | image_url: width: 360 | image_tag: loading: 'lazy' }}
           {%- else -%}
-            {%- assign fallback_images = 'uc-video-1.webp|uc-video-2.avif|uc-video-3.webp|uc-location-1.webp|uc-location-2.webp' | split: '|' -%}
+            {%- assign fallback_images = 'uc-community-video-1.png|uc-community-video-2.png|uc-community-video-3.png|uc-community-video-4.png|uc-community-video-5.png' | split: '|' -%}
             {%- assign fallback_image = fallback_images[forloop.index0] -%}
             <img src="{{ fallback_image | asset_url }}" alt="Urban Customz community video {{ forloop.index }}" loading="lazy" width="360" height="640">
           {%- endif -%}

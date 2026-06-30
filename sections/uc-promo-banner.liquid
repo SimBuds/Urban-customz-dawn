@@ -3,41 +3,49 @@
 {%- style -%}
   #uc-promo-{{ section.id }}{
     background:{{ section.settings.bg }};color:#fff;
-    display:flex;align-items:center;justify-content:center;gap:48px;
-    padding:14px 24px;font-family:'Poppins',var(--font-body-family),sans-serif;
+    font-family:'Poppins',var(--font-body-family),sans-serif;
   }
-  #uc-promo-{{ section.id }} .uc-promo-head{ font-weight:800;font-size:18px;line-height:1.1; }
+  #uc-promo-{{ section.id }} .uc-promo-inner{ max-width:var(--uc-page-max);margin:0 auto;padding:12px var(--uc-page-pad);display:flex;align-items:center;justify-content:center;gap:44px; }
+  #uc-promo-{{ section.id }} .uc-promo-head{ font-weight:900;font-size:19px;line-height:1.05;text-transform:uppercase;min-width:260px; }
   #uc-promo-{{ section.id }} .uc-grad{
-    background:linear-gradient(90deg,#ff5f5f,#ffd23f,#5fd0ff);
+    background:linear-gradient(90deg,#ff4a4a,#ffcf2d,#28c76f);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  #uc-promo-{{ section.id }} .uc-promo-right{ display:flex;align-items:center;gap:20px; }
-  #uc-promo-{{ section.id }} .uc-off b{ color:#ffb020;font-weight:800;font-size:20px; }
-  #uc-promo-{{ section.id }} .uc-off small{ font-size:10px;color:#bbb;display:block; }
+  #uc-promo-{{ section.id }} .uc-promo-right{ display:flex;align-items:center;gap:18px; }
+  #uc-promo-{{ section.id }} .uc-off{ text-align:left;line-height:1; }
+  #uc-promo-{{ section.id }} .uc-off b{ color:#ffb020;font-weight:900;font-size:22px;letter-spacing:.02em; }
+  #uc-promo-{{ section.id }} .uc-off small{ font-size:9px;color:#bbb;display:block;margin-top:4px;font-weight:700;letter-spacing:.08em;text-transform:uppercase; }
   #uc-promo-{{ section.id }} .uc-div{ width:1px;height:38px;background:#444; }
-  #uc-promo-{{ section.id }} .uc-tiers{ display:flex;gap:10px; }
-  #uc-promo-{{ section.id }} .uc-tier{ background:#fff;color:#000;border-radius:3px;padding:4px 10px;text-align:center;line-height:1; }
-  #uc-promo-{{ section.id }} .uc-tier .c{ font-size:7px;font-weight:700;color:#777; }
-  #uc-promo-{{ section.id }} .uc-tier .p{ font-weight:800;font-size:15px; }
-  @media (max-width:749px){ #uc-promo-{{ section.id }}{ gap:20px;flex-wrap:wrap;text-align:center; } }
+  #uc-promo-{{ section.id }} .uc-tier-wrap{ display:grid;gap:4px; }
+  #uc-promo-{{ section.id }} .uc-tier-note{ color:#fff;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase; }
+  #uc-promo-{{ section.id }} .uc-tiers{ display:flex;gap:8px; }
+  #uc-promo-{{ section.id }} .uc-tier{ background:#fff;color:#000;border-radius:3px;padding:4px 10px;text-align:center;line-height:1;min-width:72px; }
+  #uc-promo-{{ section.id }} .uc-tier .c{ font-size:7px;font-weight:800;color:#555;letter-spacing:.04em;text-transform:uppercase; }
+  #uc-promo-{{ section.id }} .uc-tier .p{ font-weight:900;font-size:15px;color:#f4202a; }
+  @media (max-width:749px){ #uc-promo-{{ section.id }} .uc-promo-inner{ gap:18px;flex-wrap:wrap;text-align:center; } #uc-promo-{{ section.id }} .uc-promo-head{ min-width:0; } #uc-promo-{{ section.id }} .uc-promo-right{ flex-wrap:wrap;justify-content:center; } #uc-promo-{{ section.id }} .uc-div{ display:none; } }
 {%- endstyle -%}
 
 <div id="uc-promo-{{ section.id }}">
-  <div class="uc-promo-head">
-    <div class="uc-grad">{{ section.settings.line1 }}</div>
-    <div>{{ section.settings.line2 }}</div>
-  </div>
-  <div class="uc-promo-right">
-    <div class="uc-off"><b>{{ section.settings.offer }}</b><small>{{ section.settings.offer_sub }}</small></div>
-    <div class="uc-div"></div>
-    <div class="uc-tiers">
-      {%- for block in section.blocks -%}
-        <div class="uc-tier" {{ block.shopify_attributes }}>
-          <div class="c">{{ block.settings.category }}</div>
-          <div class="p">{{ block.settings.percent }}</div>
-          <div class="c">{{ block.settings.suffix }}</div>
+  <div class="uc-promo-inner">
+    <div class="uc-promo-head">
+      <div>{{ section.settings.line1 }}</div>
+      <div class="uc-grad">{{ section.settings.line2 }}</div>
+    </div>
+    <div class="uc-promo-right">
+      <div class="uc-off"><b>{{ section.settings.offer }}</b><small>{{ section.settings.offer_sub }}</small></div>
+      <div class="uc-div"></div>
+      <div class="uc-tier-wrap">
+        <div class="uc-tier-note">Plus save even more with collection discounts</div>
+        <div class="uc-tiers">
+          {%- for block in section.blocks -%}
+            <div class="uc-tier" {{ block.shopify_attributes }}>
+              <div class="c">{{ block.settings.category }}</div>
+              <div class="p">{{ block.settings.percent }}</div>
+              <div class="c">{{ block.settings.suffix }}</div>
+            </div>
+          {%- endfor -%}
         </div>
-      {%- endfor -%}
+      </div>
     </div>
   </div>
 </div>

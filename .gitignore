@@ -11,6 +11,6 @@ Thumbs.db
 node_modules
 *.zip
 
-Design/*
-QA/*
-Scripts/*
+Design/
+QA/
+Scripts/

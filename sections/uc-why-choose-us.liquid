@@ -1,11 +1,11 @@
 {%- comment -%} Urban Customz — Why Choose Us (two annotated feature images) {%- endcomment -%}
 
 {%- style -%}
-  #uc-why-{{ section.id }}{ max-width:1500px;margin:60px auto 32px;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-why-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 32px;padding:0 var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
   #uc-why-{{ section.id }} h2{ font-size:34px;font-weight:800;margin:0; }
   #uc-why-{{ section.id }} .lead{ color:#6b6b6b;font-size:15px;margin-top:10px;max-width:760px; }
   #uc-why-{{ section.id }} .cols{ display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px; }
-  #uc-why-{{ section.id }} .media{ aspect-ratio:1.3/1;border-radius:10px;overflow:hidden; }
+  #uc-why-{{ section.id }} .media{ aspect-ratio:1.3/1;border-radius:var(--uc-radius);overflow:hidden;background:#f6f6f6; }
   #uc-why-{{ section.id }} .media img,
   #uc-why-{{ section.id }} .media svg{ width:100%;height:100%;object-fit:contain;background:#f6f6f6; }
   #uc-why-{{ section.id }} .lbl{ text-align:center;font-weight:700;font-size:20px;color:#888;margin-top:18px; }

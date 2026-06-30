@@ -1,16 +1,17 @@
 {%- comment -%} Urban Customz — Commission (image + text + CTA) {%- endcomment -%}
 
 {%- style -%}
-  #uc-comm-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-comm-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 0;padding:0 var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
   #uc-comm-{{ section.id }} .wrap{ display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center; }
-  #uc-comm-{{ section.id }} .media{ aspect-ratio:4/3;border-radius:10px;overflow:hidden; }
+  #uc-comm-{{ section.id }} .media{ aspect-ratio:4/3;border-radius:var(--uc-radius);overflow:hidden;background:#eee; }
   #uc-comm-{{ section.id }} .media img,
   #uc-comm-{{ section.id }} .media svg{ width:100%;height:100%;object-fit:cover; }
   #uc-comm-{{ section.id }} h2{ font-size:38px;font-weight:800;line-height:1.1;margin:0; }
   #uc-comm-{{ section.id }} .sub{ font-size:17px;font-weight:600;margin-top:16px; }
   #uc-comm-{{ section.id }} .sub .a{ color:#e8302a; } #uc-comm-{{ section.id }} .sub .b{ color:#888; }
   #uc-comm-{{ section.id }} p{ color:#5b6b7b;font-size:15px;line-height:1.6;margin-top:18px; }
-  #uc-comm-{{ section.id }} .btn{ display:inline-block;margin-top:26px;background:#fff;border:2px solid #111;border-radius:30px;padding:14px 30px;font-weight:700;font-size:15px;text-decoration:none;color:#111; }
+  #uc-comm-{{ section.id }} .btn{ display:inline-block;margin-top:26px;background:#fff;border:2px solid #111;border-radius:30px;padding:14px 30px;font-weight:700;font-size:15px;text-decoration:none;color:#111;transition:background 160ms ease,color 160ms ease; }
+  #uc-comm-{{ section.id }} .btn:hover{ background:#111;color:#fff; }
   @media (max-width:749px){ #uc-comm-{{ section.id }} .wrap{ grid-template-columns:1fr;gap:28px; } #uc-comm-{{ section.id }} h2{ font-size:30px; } }
 {%- endstyle -%}
 

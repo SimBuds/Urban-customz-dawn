@@ -1,38 +1,39 @@
 {%- comment -%} Urban Customz — Start Customizing (product-type cards + tabs) {%- endcomment -%}
 
 {%- style -%}
-  #uc-cust-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
-  #uc-cust-{{ section.id }} .head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px; }
+  #uc-cust-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 0;padding:0 var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-cust-{{ section.id }} .head{ display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:24px;gap:16px; }
   #uc-cust-{{ section.id }} h2{ font-size:30px;font-weight:700;margin:0; }
   #uc-cust-{{ section.id }} .ctrls{ display:flex;align-items:center;gap:28px; }
-  #uc-cust-{{ section.id }} .tabs{ display:flex;gap:22px;font-size:14px; }
+  #uc-cust-{{ section.id }} .tabs{ display:flex;justify-content:center;gap:22px;font-size:15px; }
   #uc-cust-{{ section.id }} .tabs span{ cursor:pointer;padding-bottom:4px;color:#aaa; }
   #uc-cust-{{ section.id }} .tabs span.on{ color:#000;font-weight:600;border-bottom:2px solid #000; }
-  #uc-cust-{{ section.id }} .arrow{ width:40px;height:40px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px; }
-  #uc-cust-{{ section.id }} .cards{ display:grid;grid-template-columns:repeat({{ section.blocks.size | at_least: 1 }},1fr);gap:14px; }
-  #uc-cust-{{ section.id }} .card{ background:#f5f5f5;border-radius:10px;padding:18px 10px;text-align:center;text-decoration:none;color:inherit; }
-  #uc-cust-{{ section.id }} .card .ph{ height:110px;border-radius:8px;overflow:hidden;margin-bottom:14px;display:flex;align-items:center;justify-content:center; }
+  #uc-cust-{{ section.id }} .arrow{ font-size:18px; }
+  #uc-cust-{{ section.id }} .cards{ display:flex;gap:14px;overflow-x:auto;padding:0 2px 8px; }
+  #uc-cust-{{ section.id }} .card{ background:#f5f5f5;border-radius:var(--uc-radius);padding:18px 10px;text-align:center;text-decoration:none;color:inherit;flex:0 0 calc((100% - 84px)/7);min-width:132px;scroll-snap-align:start;transition:transform 160ms ease,box-shadow 160ms ease;background:#f3f3f3; }
+  #uc-cust-{{ section.id }} .card:hover{ transform:translateY(-2px);box-shadow:0 12px 24px rgba(0,0,0,.08); }
+  #uc-cust-{{ section.id }} .card .ph{ height:116px;border-radius:8px;overflow:hidden;margin-bottom:14px;display:flex;align-items:center;justify-content:center; }
   #uc-cust-{{ section.id }} .card .ph img,
   #uc-cust-{{ section.id }} .card .ph svg{ width:100%;height:100%;object-fit:contain; }
   #uc-cust-{{ section.id }} .card .nm{ font-weight:600;font-size:13px;line-height:1.3; }
-  @media (max-width:990px){ #uc-cust-{{ section.id }} .cards{ grid-template-columns:repeat(4,1fr); } }
-  @media (max-width:749px){ #uc-cust-{{ section.id }} .cards{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:990px){ #uc-cust-{{ section.id }} .card{ flex-basis:calc((100% - 42px)/4); } }
+  @media (max-width:749px){ #uc-cust-{{ section.id }} .head{ display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap; } #uc-cust-{{ section.id }} .ctrls{ width:100%;justify-content:space-between; } #uc-cust-{{ section.id }} .card{ flex-basis:46%;min-width:146px; } }
 {%- endstyle -%}
 
-<div id="uc-cust-{{ section.id }}">
+<div id="uc-cust-{{ section.id }}" data-uc-section>
   <div class="head">
     <h2>{{ section.settings.heading }}</h2>
+    <div class="tabs">
+      {%- assign tabs = section.settings.tabs | split: ',' -%}
+      {%- for t in tabs -%}
+        <span class="{% if forloop.first %}on{% endif %}">{{ t | strip }}</span>
+      {%- endfor -%}
+    </div>
     <div class="ctrls">
-      <div class="tabs">
-        {%- assign tabs = section.settings.tabs | split: ',' -%}
-        {%- for t in tabs -%}
-          <span class="{% if forloop.first %}on{% endif %}">{{ t | strip }}</span>
-        {%- endfor -%}
-      </div>
-      <div class="arrow">›</div>
+      <button class="arrow uc-scroll-btn" type="button" data-uc-scroll="next" aria-label="Preview more categories">›</button>
     </div>
   </div>
-  <div class="cards">
+  <div class="cards uc-track-scroll" data-uc-track>
     {%- for block in section.blocks -%}
       <a class="card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
         <div class="ph">

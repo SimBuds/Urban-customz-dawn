@@ -1,43 +1,63 @@
 {%- comment -%} Urban Customz — Testimonials (Google-review style cards) {%- endcomment -%}
 
 {%- style -%}
-  #uc-test-{{ section.id }}{ max-width:1500px;margin:60px auto;padding:0 48px;font-family:'Poppins',var(--font-body-family),sans-serif; }
-  #uc-test-{{ section.id }} h2{ font-size:26px;font-weight:700;margin:0 0 24px; }
-  #uc-test-{{ section.id }} .grid{ display:grid;grid-template-columns:repeat(4,1fr);gap:18px; }
-  #uc-test-{{ section.id }} .card{ background:#f4f4f4;border-radius:8px;padding:16px; }
+  #uc-test-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 0;padding:0 var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-test-{{ section.id }} .head{ display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px; }
+  #uc-test-{{ section.id }} h2{ font-size:26px;font-weight:700;margin:0; }
+  #uc-test-{{ section.id }} .arrows{ display:flex;align-items:center;gap:10px; }
+  #uc-test-{{ section.id }} .grid{ display:flex;gap:18px;overflow-x:auto;padding:0 2px 8px; }
+  #uc-test-{{ section.id }} .card-wrap{ flex:0 0 calc((100% - 54px)/4);min-width:240px;scroll-snap-align:start; }
+  #uc-test-{{ section.id }} .card{ background:#f4f4f4;border-radius:var(--uc-radius);padding:16px;min-height:118px; }
   #uc-test-{{ section.id }} .top{ display:flex;align-items:center;justify-content:space-between;margin-bottom:8px; }
   #uc-test-{{ section.id }} .stars{ color:#fbb000;font-size:14px;letter-spacing:1px; }
   #uc-test-{{ section.id }} .ago{ font-size:11px;color:#999; }
   #uc-test-{{ section.id }} .txt{ font-size:13px;color:#444;line-height:1.5; }
   #uc-test-{{ section.id }} .author{ display:flex;align-items:center;gap:10px;margin-top:14px; }
-  #uc-test-{{ section.id }} .av{ width:34px;height:34px;border-radius:50%;background:#cfcfcf;object-fit:cover; }
+  #uc-test-{{ section.id }} .av{ width:34px;height:34px;border-radius:50%;background:#d7d7d7;object-fit:cover;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px; }
+  #uc-test-{{ section.id }} .card-wrap:nth-child(4n+1) .av{ background:#cfced2; }
+  #uc-test-{{ section.id }} .card-wrap:nth-child(4n+2) .av{ background:#9aa6b5; }
+  #uc-test-{{ section.id }} .card-wrap:nth-child(4n+3) .av{ background:#5c7fa8; }
+  #uc-test-{{ section.id }} .card-wrap:nth-child(4n+4) .av{ background:#c4c4c4; }
   #uc-test-{{ section.id }} .nm{ font-size:13px;font-weight:600; }
+  #uc-test-{{ section.id }} .verified{ color:#3897f0;font-size:12px; }
   #uc-test-{{ section.id }} .meta{ font-size:11px;color:#999; }
-  @media (max-width:990px){ #uc-test-{{ section.id }} .grid{ grid-template-columns:1fr 1fr; } }
-  @media (max-width:749px){ #uc-test-{{ section.id }} .grid{ grid-template-columns:1fr; } }
+  @media (max-width:990px){ #uc-test-{{ section.id }} .card-wrap{ flex-basis:calc((100% - 18px)/2); } }
+  @media (max-width:749px){ #uc-test-{{ section.id }} .head{ align-items:flex-start; } #uc-test-{{ section.id }} .card-wrap{ flex-basis:82%; } }
 {%- endstyle -%}
 
-<div id="uc-test-{{ section.id }}">
-  <h2>{{ section.settings.heading }}</h2>
-  <div class="grid">
-    {%- for block in section.blocks -%}
-      {%- assign full = block.settings.rating | default: 5 | round -%}
-      <div class="card-wrap" {{ block.shopify_attributes }}>
-        <div class="card">
-          <div class="top">
-            <span class="stars">{% for i in (1..5) %}{% if i <= full %}★{% else %}☆{% endif %}{% endfor %}</span>
-            <span class="ago">{{ block.settings.ago }}</span>
+<div id="uc-test-{{ section.id }}" data-uc-section>
+  <div class="head">
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="arrows">
+      <button class="uc-scroll-btn" type="button" data-uc-scroll="prev" aria-label="Previous testimonials">‹</button>
+      <button class="uc-scroll-btn" type="button" data-uc-scroll="next" aria-label="Next testimonials">›</button>
+    </div>
+  </div>
+  <div class="grid uc-track-scroll" data-uc-track data-uc-autoscroll="testimonials">
+    {%- for n in (1..2) -%}
+      {%- for block in section.blocks -%}
+        {%- assign full = block.settings.rating | default: 5 | round -%}
+        <div class="card-wrap"{% if n == 2 %} aria-hidden="true"{% else %} {{ block.shopify_attributes }}{% endif %}>
+          <div class="card">
+            <div class="top">
+              <span class="stars">{% for i in (1..5) %}{% if i <= full %}★{% else %}☆{% endif %}{% endfor %}</span>
+              <span class="ago">{{ block.settings.ago }}</span>
+            </div>
+            <div class="txt">{{ block.settings.text }}</div>
           </div>
-          <div class="txt">{{ block.settings.text }}</div>
-        </div>
-        <div class="author">
-          {%- if block.settings.avatar -%}{{ block.settings.avatar | image_url: width: 80 | image_tag: class: 'av', loading: 'lazy' }}{%- else -%}<span class="av"></span>{%- endif -%}
-          <div>
-            <div class="nm">{{ block.settings.name }} <span style="color:#3897f0">✔</span></div>
-            <div class="meta">Local Guide · {{ block.settings.reviews }} reviews</div>
+          <div class="author">
+            {%- if block.settings.avatar -%}
+              {{ block.settings.avatar | image_url: width: 80 | image_tag: class: 'av', loading: 'lazy' }}
+            {%- else -%}
+              <span class="av">{{ block.settings.name | slice: 0, 1 }}</span>
+            {%- endif -%}
+            <div>
+              <div class="nm">{{ block.settings.name }} <span class="verified">✓</span></div>
+              <div class="meta">Local Guide · {{ block.settings.reviews }} reviews</div>
+            </div>
           </div>
         </div>
-      </div>
+      {%- endfor -%}
     {%- endfor -%}
   </div>
 </div>
