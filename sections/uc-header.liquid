@@ -11,26 +11,44 @@
   #uc-header-{{ section.id }} .icons { display:flex;gap:22px;align-items:center; }
   #uc-header-{{ section.id }} .icons a { color:#fff;text-decoration:none;line-height:1;display:flex; }
   #uc-header-{{ section.id }} .icons svg { width:21px;height:21px;display:block; }
-  #uc-header-{{ section.id }} a:focus-visible{ outline:2px solid #f4202a;outline-offset:4px; }
+  #uc-header-{{ section.id }} .menu-toggle{ display:none;color:#fff;background:transparent;border:0;padding:0;cursor:pointer; }
+  #uc-header-{{ section.id }} .menu-toggle span{ display:block;width:22px;height:2px;background:currentColor;border-radius:999px;transition:transform 160ms ease,opacity 160ms ease; }
+  #uc-header-{{ section.id }} .menu-toggle span + span{ margin-top:5px; }
+  #uc-header-{{ section.id }} a:focus-visible,
+  #uc-header-{{ section.id }} button:focus-visible{ outline:2px solid #f4202a;outline-offset:4px; }
   @media (max-width: 989px) {
     #uc-header-{{ section.id }} .wrap { grid-template-columns:1fr auto; }
+    #uc-header-{{ section.id }} .icons{ grid-column:2;grid-row:1;justify-self:end; }
     #uc-header-{{ section.id }} .nav { grid-column:1 / -1;justify-content:flex-start;overflow-x:auto;gap:22px;padding-bottom:4px;scrollbar-width:none; }
     #uc-header-{{ section.id }} .nav::-webkit-scrollbar{ display:none; }
   }
   @media (max-width: 749px) {
-    #uc-header-{{ section.id }} .wrap { padding-left:16px;padding-right:16px;gap:14px; }
+    #uc-header-{{ section.id }} .wrap { grid-template-columns:auto 1fr auto;padding-left:16px;padding-right:16px;gap:14px; }
     #uc-header-{{ section.id }} .logo img { width:78px; }
-    #uc-header-{{ section.id }} .icons { gap:14px;font-size:18px; }
-    #uc-header-{{ section.id }} .nav { font-size:13px; }
+    #uc-header-{{ section.id }} .icons { grid-column:2;grid-row:1;justify-self:end;gap:14px;font-size:18px; }
+    #uc-header-{{ section.id }} .menu-toggle{ grid-column:3;grid-row:1;display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center;flex-direction:column; }
+    #uc-header-{{ section.id }} .nav { display:none;grid-column:1 / -1;flex-direction:column;align-items:stretch;gap:0;overflow:visible;padding:10px 0 2px;border-top:1px solid rgba(255,255,255,.14);font-size:14px; }
+    #uc-header-{{ section.id }}.is-menu-open .nav{ display:flex; }
+    #uc-header-{{ section.id }} .nav a{ justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1); }
+    #uc-header-{{ section.id }} .nav a::after{ display:none; }
+    #uc-header-{{ section.id }} .chev{ margin-left:auto; }
+    #uc-header-{{ section.id }} .menu-toggle[aria-expanded='true'] span:first-child{ transform:translateY(7px) rotate(45deg); }
+    #uc-header-{{ section.id }} .menu-toggle[aria-expanded='true'] span:nth-child(2){ opacity:0; }
+    #uc-header-{{ section.id }} .menu-toggle[aria-expanded='true'] span:last-child{ transform:translateY(-7px) rotate(-45deg); }
   }
 {%- endstyle -%}
 
-<header id="uc-header-{{ section.id }}">
+<header id="uc-header-{{ section.id }}" data-uc-mobile-header>
   <div class="wrap">
     <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
       <img src="{{ 'uc-logo.webp' | asset_url }}" alt="{{ shop.name | escape }}" loading="eager" width="1082" height="623">
     </a>
-    <nav class="nav" aria-label="Main navigation">
+    <button class="menu-toggle" type="button" aria-controls="uc-header-nav-{{ section.id }}" aria-expanded="false" aria-label="Toggle navigation" data-uc-menu-toggle>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <nav id="uc-header-nav-{{ section.id }}" class="nav" aria-label="Main navigation">
       {%- for block in section.blocks -%}
         {%- assign has_menu_cue = false -%}
         {%- if block.settings.label contains 'Collection' or block.settings.label contains 'Custom' or block.settings.label contains 'Signage' -%}
