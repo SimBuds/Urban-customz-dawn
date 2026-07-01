@@ -1,0 +1,130 @@
+{%- comment -%}
+  Urban Customz — Art Reveal
+  A 3-up image row where only the centre image is an interactive before/after
+  comparison. Dragging the middle handle wipes between a "blank wall" (before)
+  and the same space "with your art" (after). The flanking images are static
+  framing and hide on mobile. Drag logic lives in assets/uc-home.js ([data-uc-art]).
+{%- endcomment -%}
+
+{%- liquid
+  assign pos = section.settings.start_position | default: 50
+  assign before_alt = section.settings.before_label | default: 'Before'
+  assign after_alt = section.settings.after_label | default: 'After'
+-%}
+
+{%- style -%}
+  @property --uc-pos { syntax: '<length-percentage>'; inherits: false; initial-value: 50%; }
+
+  #uc-art-{{ section.id }}{ max-width:var(--uc-page-max);margin:var(--uc-section-gap) auto 0;padding:0 var(--uc-page-pad);font-family:'Poppins',var(--font-body-family),sans-serif; }
+  #uc-art-{{ section.id }} .head{ text-align:center;margin-bottom:28px; }
+  #uc-art-{{ section.id }} h2{ font-size:30px;font-weight:800;margin:0; }
+  #uc-art-{{ section.id }} .lead{ color:var(--uc-muted);font-size:14px;line-height:1.5;margin:8px auto 0;max-width:560px; }
+
+  #uc-art-{{ section.id }} .stage{ display:flex;gap:16px;align-items:stretch;justify-content:center; }
+  #uc-art-{{ section.id }} .side{ flex:0 0 20%;margin:0;border-radius:var(--uc-radius);overflow:hidden;background:var(--uc-card); }
+  #uc-art-{{ section.id }} .side img{ width:100%;height:100%;object-fit:cover;display:block; }
+
+  #uc-art-{{ section.id }} .reveal{ position:relative;flex:1 1 auto;max-width:680px;aspect-ratio:16/10;border-radius:var(--uc-radius);overflow:hidden;background:#222;--uc-pos:{{ pos }}%;cursor:ew-resize;user-select:none;-webkit-user-select:none;touch-action:pan-y; }
+  #uc-art-{{ section.id }} .reveal img{ position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none; }
+  #uc-art-{{ section.id }} .reveal .before{ position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--uc-pos)) 0 0); }
+
+  #uc-art-{{ section.id }} .lbl{ position:absolute;top:12px;z-index:3;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);pointer-events:none; }
+  #uc-art-{{ section.id }} .lbl-before{ left:12px; }
+  #uc-art-{{ section.id }} .lbl-after{ right:12px; }
+
+  #uc-art-{{ section.id }} .handle{ position:absolute;top:0;bottom:0;left:var(--uc-pos);transform:translateX(-50%);z-index:4;width:46px;padding:0;border:0;background:transparent;cursor:ew-resize;display:flex;align-items:center;justify-content:center; }
+  #uc-art-{{ section.id }} .handle .line{ position:absolute;top:0;bottom:0;left:50%;width:3px;transform:translateX(-50%);background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.12); }
+  #uc-art-{{ section.id }} .handle .grip{ position:relative;width:42px;height:42px;border-radius:999px;background:#fff;color:#111;font-size:16px;font-weight:700;letter-spacing:-1px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.28); }
+  #uc-art-{{ section.id }} .handle:focus-visible{ outline:none; }
+  #uc-art-{{ section.id }} .handle:focus-visible .grip{ outline:2px solid var(--uc-red);outline-offset:3px; }
+  #uc-art-{{ section.id }} .reveal.is-dragging{ cursor:ew-resize; }
+
+  @media (prefers-reduced-motion: no-preference){
+    #uc-art-{{ section.id }} .reveal{ animation:uc-art-hint-{{ section.id }} 2.6s cubic-bezier(.4,0,.2,1) .7s 1; }
+    @keyframes uc-art-hint-{{ section.id }}{ 0%,100%{ --uc-pos:{{ pos }}%; } 32%{ --uc-pos:64%; } 68%{ --uc-pos:38%; } }
+  }
+
+  @media (max-width:990px){ #uc-art-{{ section.id }} .side{ flex-basis:16%; } }
+  @media (max-width:749px){
+    #uc-art-{{ section.id }} h2{ font-size:24px; }
+    #uc-art-{{ section.id }} .stage{ flex-direction:column;gap:0; }
+    #uc-art-{{ section.id }} .side{ display:none; }
+    #uc-art-{{ section.id }} .reveal{ max-width:100%;width:100%;aspect-ratio:4/5; }
+  }
+{%- endstyle -%}
+
+<div id="uc-art-{{ section.id }}">
+  {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+    <div class="head">
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subheading != blank -%}<p class="lead">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="stage">
+    <figure class="side side-left" aria-hidden="true">
+      {%- if section.settings.left_image != blank -%}
+        {{ section.settings.left_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: '' }}
+      {%- else -%}
+        <img src="{{ 'uc-product-1.avif' | asset_url }}" alt="" loading="lazy" width="300" height="400">
+      {%- endif -%}
+    </figure>
+
+    <figure class="reveal" data-uc-art>
+      {%- if section.settings.after_image != blank -%}
+        {{ section.settings.after_image | image_url: width: 1200 | image_tag: class: 'after', loading: 'lazy', alt: after_alt }}
+      {%- else -%}
+        <img class="after" src="{{ 'uc-new-lifestyle.webp' | asset_url }}" alt="{{ after_alt | escape }}" loading="lazy" width="1200" height="750">
+      {%- endif -%}
+
+      <div class="before">
+        {%- if section.settings.before_image != blank -%}
+          {{ section.settings.before_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: before_alt }}
+        {%- else -%}
+          <img src="{{ 'uc-hero-wall-art.webp' | asset_url }}" alt="{{ before_alt | escape }}" loading="lazy" width="1200" height="750">
+        {%- endif -%}
+      </div>
+
+      <span class="lbl lbl-before">{{ before_alt }}</span>
+      <span class="lbl lbl-after">{{ after_alt }}</span>
+
+      <button class="handle" type="button" data-uc-art-handle
+        role="slider" tabindex="0"
+        aria-label="{{ section.settings.handle_label | escape }}"
+        aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pos }}">
+        <span class="line" aria-hidden="true"></span>
+        <span class="grip" aria-hidden="true">&#8249;&#8250;</span>
+      </button>
+    </figure>
+
+    <figure class="side side-right" aria-hidden="true">
+      {%- if section.settings.right_image != blank -%}
+        {{ section.settings.right_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: '' }}
+      {%- else -%}
+        <img src="{{ 'uc-product-6.avif' | asset_url }}" alt="" loading="lazy" width="300" height="400">
+      {%- endif -%}
+    </figure>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "UC Art Reveal",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "See Your Art On The Wall" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Drag the slider to drop your custom wall art into a real space." },
+    { "type": "header", "content": "Centre image (interactive)" },
+    { "type": "image_picker", "id": "before_image", "label": "Before image (blank wall)" },
+    { "type": "image_picker", "id": "after_image", "label": "After image (with your art)" },
+    { "type": "text", "id": "before_label", "label": "Before label", "default": "Blank Wall" },
+    { "type": "text", "id": "after_label", "label": "After label", "default": "With Your Art" },
+    { "type": "text", "id": "handle_label", "label": "Slider accessibility label", "default": "Drag to reveal the wall art" },
+    { "type": "range", "id": "start_position", "min": 10, "max": 90, "step": 5, "unit": "%", "label": "Slider start position", "default": 50 },
+    { "type": "header", "content": "Side images (static, hidden on mobile)" },
+    { "type": "image_picker", "id": "left_image", "label": "Left image" },
+    { "type": "image_picker", "id": "right_image", "label": "Right image" }
+  ],
+  "presets": [{ "name": "UC Art Reveal" }]
+}
+{% endschema %}

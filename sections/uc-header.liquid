@@ -11,6 +11,7 @@
   #uc-header-{{ section.id }} .icons { display:flex;gap:22px;align-items:center; }
   #uc-header-{{ section.id }} .icons a { color:#fff;text-decoration:none;line-height:1;display:flex; }
   #uc-header-{{ section.id }} .icons svg { width:21px;height:21px;display:block; }
+  #uc-header-{{ section.id }} .icons .cart-link svg { width:28px;height:28px; }
   #uc-header-{{ section.id }} .menu-toggle{ display:none;color:#fff;background:transparent;border:0;padding:0;cursor:pointer; }
   #uc-header-{{ section.id }} .menu-toggle span{ display:block;width:22px;height:2px;background:currentColor;border-radius:999px;transition:transform 160ms ease,opacity 160ms ease; }
   #uc-header-{{ section.id }} .menu-toggle span + span{ margin-top:5px; }
@@ -63,7 +64,7 @@
     <div class="icons" aria-label="Store tools">
       <a href="{{ routes.search_url }}" aria-label="Search">{{ 'icon-search.svg' | inline_asset_content }}</a>
       <a href="{{ routes.account_url }}" aria-label="Account">{{ 'icon-account.svg' | inline_asset_content }}</a>
-      <a href="{{ routes.cart_url }}" aria-label="Cart">{{ 'icon-cart.svg' | inline_asset_content }}</a>
+      <a class="cart-link" href="{{ routes.cart_url }}" aria-label="Cart">{{ 'icon-cart.svg' | inline_asset_content }}</a>
     </div>
   </div>
 </header>

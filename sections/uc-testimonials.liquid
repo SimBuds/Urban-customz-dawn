@@ -22,7 +22,8 @@
   #uc-test-{{ section.id }} .verified{ color:#3897f0;font-size:12px; }
   #uc-test-{{ section.id }} .meta{ font-size:11px;color:#999; }
   @media (max-width:990px){ #uc-test-{{ section.id }} .card-wrap{ flex-basis:calc((100% - 18px)/2); } }
-  @media (max-width:749px){ #uc-test-{{ section.id }}{ text-align:center; } #uc-test-{{ section.id }} .head{ align-items:center;justify-content:center;flex-wrap:wrap; } #uc-test-{{ section.id }} h2{ width:100%; } #uc-test-{{ section.id }} .arrows{ width:100%;justify-content:center; } #uc-test-{{ section.id }} .grid{ box-sizing:border-box;padding-left:9%;padding-right:9%;scroll-padding-inline:9%; } #uc-test-{{ section.id }} .card-wrap{ flex-basis:82%;scroll-snap-align:center; } #uc-test-{{ section.id }} .author{ justify-content:center;text-align:left; } }
+  #uc-test-{{ section.id }} .dots{ display:none; }
+  @media (max-width:749px){ #uc-test-{{ section.id }}{ text-align:center; } #uc-test-{{ section.id }} .head{ align-items:center;justify-content:center;flex-wrap:wrap; } #uc-test-{{ section.id }} h2{ width:100%; } #uc-test-{{ section.id }} .arrows{ width:100%;justify-content:center; } #uc-test-{{ section.id }} .grid{ box-sizing:border-box;padding-left:9%;padding-right:9%;scroll-padding-inline:9%;scroll-snap-type:x mandatory; } #uc-test-{{ section.id }} .card-wrap{ flex-basis:82%;scroll-snap-align:center; } #uc-test-{{ section.id }} .author{ justify-content:center;text-align:left; } #uc-test-{{ section.id }} .dots{ display:flex;justify-content:center;gap:8px;margin-top:16px; } #uc-test-{{ section.id }} .dot{ width:8px;height:8px;padding:0;border:0;border-radius:50%;background:#d0d0d0;cursor:pointer;transition:background .2s,transform .2s; } #uc-test-{{ section.id }} .dot.is-active{ background:#444;transform:scale(1.25); } }
 {%- endstyle -%}
 
 <div id="uc-test-{{ section.id }}" data-uc-section>
@@ -58,6 +59,11 @@
           </div>
         </div>
       {%- endfor -%}
+    {%- endfor -%}
+  </div>
+  <div class="dots" data-uc-dots>
+    {%- for block in section.blocks -%}
+      <button class="dot{% if forloop.first %} is-active{% endif %}" type="button" data-uc-dot="{{ forloop.index0 }}" aria-label="Go to review {{ forloop.index }}"></button>
     {%- endfor -%}
   </div>
 </div>

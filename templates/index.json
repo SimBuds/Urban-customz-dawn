@@ -244,6 +244,10 @@
         "products_to_show": 5
       }
     },
+    "uc_art_reveal": {
+      "type": "uc-art-reveal",
+      "settings": {}
+    },
     "uc_commission": {
       "type": "uc-commission",
       "settings": {}
@@ -474,6 +478,7 @@
     "uc_press",
     "uc_customizing",
     "uc_bestsellers",
+    "uc_art_reveal",
     "uc_commission",
     "uc_new_arrivals",
     "uc_new_deals",
